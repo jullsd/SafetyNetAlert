@@ -23,38 +23,39 @@ public class PersonneRepositoryTest {
     private List<Personne> personneInData = new ArrayList<>();
 
     private  Personne PERSONNE = new Personne("Sayd","Julien","11","Buc","7832","0632323525","julien.sayd@gmail.com");
-    private  Personne personne = new Personne("Sayda","Julien","11","Buc","7832","0632323525","julien.sayd@gmail.com");
+
 
     @Test
-    public void testGetANewPersonne() {
-
+    public void GetANewPersonne() {
 
         PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(jsonReaderRepository);
 
+        personneRepository.addNewPersonne(PERSONNE);
 
         List personnes = personneRepository.findAll();
-
-        personneRepository.addNewPersonne(PERSONNE);
 
         assertThat(personnes).contains(PERSONNE);
     }
 
     @Test
-    public void testDeleteAPersonne() {
+    public void DeleteAPersonne() {
 
         PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(jsonReaderRepository);
-
-        personneInData.add(0,PERSONNE);
-
+        personneRepository.addNewPersonne(PERSONNE);
         List personnes = personneRepository.deleteAPersonne(PERSONNE);
 
-        assertThat(personnes).doesNotContain(PERSONNE);
+        List personnesInData = personneRepository.findAll();
+
+        assertThat(personnesInData).doesNotContain(PERSONNE);
     }
     @Test
    public void findAPersonneByLastNAmeAndFirstNametest() {
+
         PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(jsonReaderRepository);
-        List personneInData = personneRepository.findAll();
-        personneInData.add(0,PERSONNE);
+
+        personneRepository.addNewPersonne(PERSONNE);
+
+
 
        Personne personne = personneRepository.findByLastNameAndFirstName("Julien","Sayd");
 
@@ -65,8 +66,7 @@ public class PersonneRepositoryTest {
     @Test
     public void DontfindAPersonneByLastNAmeAndFirstNametest() {
         PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(jsonReaderRepository);
-        List personneInData = personneRepository.findAll();
-        personneInData.add(0,PERSONNE);
+        personneRepository.addNewPersonne(PERSONNE);
 
         Personne personne = personneRepository.findByLastNameAndFirstName("aa","sa");
 
@@ -76,14 +76,15 @@ public class PersonneRepositoryTest {
     @Test
     public void udapteInformationOfAPersonneTest() {
         PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(jsonReaderRepository);
-        List personneInData = personneRepository.findAll();
-        personneInData.add(0,personne);
-        personne.setPhone("2222");
-        personne.setCity("asa");
-       personneRepository.udapteInformationOfaPersonne(personne);
+        personneRepository.addNewPersonne(PERSONNE);
 
-       assertThat(personne.getPhone()).isEqualTo("2222");
-        assertThat(personne.getCity()).isEqualTo("asa");
+        PERSONNE.setPhone("2222");
+        PERSONNE.setCity("asa");
+
+        personneRepository.udapteInformationOfaPersonne(PERSONNE);
+
+       assertThat(PERSONNE.getPhone()).isEqualTo("2222");
+        assertThat(PERSONNE.getCity()).isEqualTo("asa");
 
     }
 

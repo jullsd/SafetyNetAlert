@@ -103,7 +103,7 @@ public class SafetyAlertService {
 
     }
 
-    private int getAdultCountByPersonnes(List<PersonneDto> personnes) {
+    public int getAdultCountByPersonnes(List<PersonneDto> personnes) {
         int adultCount = 0;
         for (PersonneDto personnesDto : personnes) {
             String birthday = medicalRecordService
@@ -116,7 +116,7 @@ public class SafetyAlertService {
         return adultCount;
     }
 
-    private int getChildrenCountByPersonnes(List<PersonneDto> personnes) {
+    public int getChildrenCountByPersonnes(List<PersonneDto> personnes) {
         int childrenCount = 0;
         for (PersonneDto personnesDto : personnes) {
             String birthday = medicalRecordService
@@ -130,9 +130,8 @@ public class SafetyAlertService {
     }
 
 
-
+    //This function should return a list of personnes for 1 fire sation number
     public PersonneDtos getPersonnesByFireStation(int fireStationNumber) {
-        //This function should return a list of personnes for 1 fire sation number
        List<PersonneDto> personnes = getPersonnesByFireStationNumber(fireStationNumber);
        int adultCount = getAdultCountByPersonnes(personnes);
        int childrenCount = getChildrenCountByPersonnes(personnes);

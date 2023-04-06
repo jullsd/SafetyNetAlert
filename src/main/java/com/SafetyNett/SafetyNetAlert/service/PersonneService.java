@@ -5,6 +5,7 @@ import com.SafetyNett.SafetyNetAlert.model.FireStation;
 import com.SafetyNett.SafetyNetAlert.model.Personne;
 import com.SafetyNett.SafetyNetAlert.repository.DataReaderFromAJson;
 import com.SafetyNett.SafetyNetAlert.repository.PersonneRepositoryDataMemory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,10 +15,12 @@ import java.util.List;
 @Service
 public class PersonneService {
 
-    DataReaderFromAJson dataReaderFromAJson = new DataReaderFromAJson();
-    PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(dataReaderFromAJson);
 
-    AgeCalulatorService ageCalulatorService = new AgeCalulatorService();
+    PersonneRepositoryDataMemory personneRepository;
+    @Autowired
+    public PersonneService(PersonneRepositoryDataMemory personneRepository) {
+        this.personneRepository = personneRepository;
+    }
 
     public List<PersonneDto> getPersonnesByFireStations(List<FireStation> fireStations) {
 

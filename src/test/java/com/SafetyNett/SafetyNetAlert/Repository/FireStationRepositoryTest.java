@@ -25,23 +25,23 @@ public class FireStationRepositoryTest {
     private FireStation fireStation = new FireStation("adress",2);
 
     @Test
-    public void testGetANewPersonne() {
+    public void GetANewFireStation() {
 
 
        FireStationRepositoryDataMemory fireStationRepository= new FireStationRepositoryDataMemory(dataReaderFromAJson);
 
+       fireStationRepository.addAFireStation(fireStation);
 
         List fireStations = fireStationRepository.findAll();
-
-        fireStationRepository.addAFireStation(fireStation);
 
         assertThat(fireStations).contains(fireStation);
     }
 
     @Test
-    public void testDeleteAFireStations() {
+    public void DeleteAFireStations() {
 
         FireStationRepositoryDataMemory fireStationRepository= new FireStationRepositoryDataMemory(dataReaderFromAJson);
+
 
         fireStationsInData.add(0,fireStation);
 
@@ -54,12 +54,13 @@ public class FireStationRepositoryTest {
     public void findByAdressTest() {
 
         FireStationRepositoryDataMemory fireStationRepository= new FireStationRepositoryDataMemory(dataReaderFromAJson);
-        List fireStationsInData = fireStationRepository.findAll();
-        fireStationsInData.add(0,fireStation);
+        fireStationRepository.addAFireStation(fireStation);
 
-       FireStation fireStationA = fireStationRepository.findByAdresse("adress");
 
-        assertThat(fireStationA).isEqualTo(fireStation);
+       FireStation fireStation2 = fireStationRepository.findByAdresse("adress");
+
+
+        assertThat(fireStation2).isEqualTo(fireStation);
 
     }
 
@@ -67,10 +68,11 @@ public class FireStationRepositoryTest {
     public void DontfindByAdressTest() {
 
         FireStationRepositoryDataMemory fireStationRepository= new FireStationRepositoryDataMemory(dataReaderFromAJson);
-        List fireStationsInData = fireStationRepository.findAll();
-        fireStationsInData.add(0,fireStation);
+
+        fireStationRepository.addAFireStation(fireStation);
 
         FireStation fireStationA = fireStationRepository.findByAdresse("adressNull");
+        List fireStationsInData = fireStationRepository.findAll();
 
         assertThat(fireStationA).isNull();
 
@@ -78,11 +80,11 @@ public class FireStationRepositoryTest {
     @Test
     public void udapteInformationOfAFireStationTest() {
         FireStationRepositoryDataMemory fireStationRepository= new FireStationRepositoryDataMemory(dataReaderFromAJson);
-        List fireStationsInData = fireStationRepository.findAll();
+       fireStationRepository.addAFireStation(fireStation);
 
-        fireStationsInData.add(0,fireStation);
        fireStation.setStation(5);
        fireStation.setAddress("LILI");
+
         fireStationRepository.udapteAFireStaion(fireStation);
 
         assertThat(fireStation.getAddress()).isEqualTo("LILI");

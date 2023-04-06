@@ -12,11 +12,11 @@ import java.util.List;
 @Slf4j
 public class FireStationRepositoryDataMemory implements  FireStationRepository{
 
-    @Autowired
+
     DataReaderFromAJson dataReaderFromAJson;
 
     private List<FireStation> fireStations = new ArrayList<>();
-
+    @Autowired
     public FireStationRepositoryDataMemory(DataReaderFromAJson dataReaderFromAJson) {
         this.dataReaderFromAJson = dataReaderFromAJson;
         fireStations.addAll(dataReaderFromAJson.fireStations());
