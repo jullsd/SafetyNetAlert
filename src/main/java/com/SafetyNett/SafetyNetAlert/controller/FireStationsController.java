@@ -21,10 +21,6 @@ public class FireStationsController {
 
     @Autowired
     FireStationRepositoryDataMemory fireStationRepository;
-    @Autowired
-    SafetyAlertService safetyAlertService;
-
-
     @PostMapping("/firestation")
     public ResponseEntity addAFireStation(@RequestBody FireStation fireStation){
 
@@ -47,28 +43,5 @@ public class FireStationsController {
 
     }
 
-    @GetMapping("/firestation")
-    public PersonneDtos mapFireStation(@RequestParam final int fireStationNumber)   {
-
-        return safetyAlertService.getPersonnesByFireStation(fireStationNumber);
-
-    }
-
-    @GetMapping("/phoneAlert")
-    public List<String> mapFireStatio(@RequestParam final int fireStation)   {
-
-        return safetyAlertService.getPhoneNumbersByFireStation(fireStation); }
-
-    /*
-
-    @GetMapping("/childAlert")
-    public List<ChildrenDTO> childrenListAtOneAdress(@RequestParam final String address) {
-
-        return fireStationsService.getChildrenByAdress(address); }
-
-    @GetMapping("/fire")
-    public List<PersonnWithMedicalRecordDTO> personneListWithMedicalRecordAtOneAdress(@RequestParam final String address) {
-
-        return fireStationsService.getPersonnesByAdresseWithMedicalRecord(address); } */
 
 }

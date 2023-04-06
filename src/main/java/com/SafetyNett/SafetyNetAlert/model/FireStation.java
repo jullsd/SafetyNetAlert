@@ -7,8 +7,6 @@ import org.apache.commons.lang3.builder.HashCodeExclude;
 @Data
 public class FireStation {
 
-
-
     private String address;
     private int station;
 

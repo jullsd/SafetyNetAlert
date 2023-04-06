@@ -23,8 +23,7 @@ public class PersonneController {
     @Autowired
     PersonneService personneService;
 
-    @Autowired
-    SafetyAlertService safetyAlertService;
+
 
 
     @GetMapping( "/Personnes" )
@@ -59,11 +58,6 @@ public class PersonneController {
         return personneService.getEmailOfPersonneByCity(city);
 
     }
-
-    @GetMapping("/childAlert")
-    public ChildrenDtos childrenListAtOneAdress(@RequestParam final String address) {
-
-            return safetyAlertService.getChildrenAndPersonnesAssociatedToAChildByAdress(address); }
 
 
 }
