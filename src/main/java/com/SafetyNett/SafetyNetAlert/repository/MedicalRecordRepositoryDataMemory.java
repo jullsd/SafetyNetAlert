@@ -45,7 +45,6 @@ public class MedicalRecordRepositoryDataMemory implements MedicalRecordRepositor
 
     @Override
     public MedicalRecord udapteMedicalRecord(MedicalRecord medicalRecord) {
-        findByLastNameAndFirstName(medicalRecord.getLastName(),medicalRecord.getFirstName());
         int personneIndex= medicalRecords.indexOf(findByLastNameAndFirstName(medicalRecord.getLastName(), medicalRecord.getFirstName()));
         medicalRecords.set(personneIndex,medicalRecord);
 

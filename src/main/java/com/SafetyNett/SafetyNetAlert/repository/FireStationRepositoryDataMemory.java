@@ -26,7 +26,7 @@ public class FireStationRepositoryDataMemory implements  FireStationRepository{
     @Override
     public List<FireStation> findAll() {
 
-        log.info("asas");
+        log.debug("asas");
 
         List<FireStation> fireStationsclone = new ArrayList<>(fireStations);
 
@@ -53,10 +53,12 @@ public class FireStationRepositoryDataMemory implements  FireStationRepository{
     }
 
     @Override
-    public List<FireStation> deleteAPersonne(FireStation fireStation) {
+    public List<FireStation> deleteAFireStation(FireStation fireStation) {
         findByAdresse(fireStation.getAddress());
 
         fireStations.remove(fireStation);
+
+
 
         return fireStations;
 
@@ -65,8 +67,8 @@ public class FireStationRepositoryDataMemory implements  FireStationRepository{
     @Override
     public FireStation udapteAFireStaion(FireStation fireStation) {
         findByAdresse(fireStation.getAddress());
-        int personneIndex= fireStations.indexOf(findByAdresse(fireStation.getAddress()));
-        fireStations.set(personneIndex,fireStation);
+        int fireStationIndex = fireStations.indexOf(findByAdresse(fireStation.getAddress()));
+        fireStations.set(fireStationIndex,fireStation);
 
 
         return fireStation;

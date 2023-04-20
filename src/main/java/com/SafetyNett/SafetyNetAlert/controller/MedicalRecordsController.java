@@ -5,36 +5,36 @@ import com.SafetyNett.SafetyNetAlert.model.MedicalRecord;
 import com.SafetyNett.SafetyNetAlert.repository.MedicalRecordRepositoryDataMemory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @ComponentScan
-public class MedicalRecordsController {
+public class
+MedicalRecordsController {
 
     @Autowired
     MedicalRecordRepositoryDataMemory medicalRecordRepository;
 
-    @GetMapping("/MedicalRecord")
-    public List<MedicalRecord> listmedicalRecord() {
-        return medicalRecordRepository.findAll();
-    }
 
-    @PostMapping("/MedicalRecord")
-    public void addAMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+    @PostMapping("/medicalRecord")
+    public ResponseEntity addAMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
 
         medicalRecordRepository.addNewMedicalRecord(medicalRecord);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/MedicalRecord")
-    public void deleteAMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+    @DeleteMapping("/medicalRecord")
+    public ResponseEntity deleteAMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
         medicalRecordRepository.deleteAMedicalRecord(medicalRecord);
 
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/MedicalRecord")
-    public MedicalRecord udapteApersonne(@RequestBody MedicalRecord medicalRecord) {
+    @PutMapping("/medicalRecord")
+    public MedicalRecord udapteMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
 
         medicalRecordRepository.udapteMedicalRecord(medicalRecord);
 

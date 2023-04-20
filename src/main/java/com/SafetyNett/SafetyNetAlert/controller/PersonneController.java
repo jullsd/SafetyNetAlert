@@ -9,6 +9,8 @@ import com.SafetyNett.SafetyNetAlert.service.PersonneService;
 import com.SafetyNett.SafetyNetAlert.service.SafetyAlertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,28 +25,22 @@ public class PersonneController {
     @Autowired
     PersonneService personneService;
 
-
-
-
-    @GetMapping( "/Personnes" )
-    public List<Personne> listPersonne() {
-        return personneRepository.findAll();
-    }
-
-    @PostMapping( "/Personnes" )
-    public void addANewPersonne(@RequestBody Personne personne) {
+    @PostMapping( "/person" )
+    public ResponseEntity addANewPersonne(@RequestBody Personne personne) {
 
         personneRepository.addNewPersonne(personne);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/Personnes/{firstName}/{lastName}")
+    @DeleteMapping("/person/{firstName}/{lastName}")
         public void deleteAPersonne(@RequestBody Personne personne) {
 
         personneRepository.deleteAPersonne(personne); }
 
 
 
-        @PutMapping("/Personnes/{firstName}/{lastName}")
+        @PutMapping("/person/")
                 public  Personne udapteApersonne(@RequestBody Personne personne) {
 
             personneRepository.udapteInformationOfaPersonne(personne);

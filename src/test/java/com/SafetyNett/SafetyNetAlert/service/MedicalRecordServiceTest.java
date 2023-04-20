@@ -18,18 +18,18 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith( MockitoExtension.class)
-class MedicalRecordServiceTest {
+public class MedicalRecordServiceTest {
 
     @Mock
     private MedicalRecordRepositoryDataMemory medicalRecordRepository;
 
-    private final String LAST_NAME = "Dupont";
-    private final String OTHER_LAST_NAME = "Tartopian";
+    public static final String LAST_NAME = "Dupont";
+    public static final String OTHER_LAST_NAME = "Tartopian";
 
-    private final String OTHER_FIRST_NAME = "Tartopian";
+    public static final String OTHER_FIRST_NAME = "Tartopian";
 
-    private final String FIRST_NAME = "Michel";
-    private final String BIRTHDATE = "04/14/1991";
+    public static final String FIRST_NAME = "Michel";
+    public static final String BIRTHDATE = "04/14/1991";
 
     @Test
     void getBirthdayByLastNameAndFirstName() {
