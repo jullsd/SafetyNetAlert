@@ -6,7 +6,6 @@ import org.apache.commons.lang3.builder.HashCodeExclude;
 
 
 @Data
-@Generated
 public class FireStation {
 
     private String address;

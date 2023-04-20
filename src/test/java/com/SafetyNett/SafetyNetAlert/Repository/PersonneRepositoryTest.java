@@ -26,7 +26,7 @@ public class PersonneRepositoryTest {
 
 
     @Test
-    public void GetANewPersonne() {
+    public void AddANewPersonne() {
 
         PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(jsonReaderRepository);
 
@@ -64,15 +64,23 @@ public class PersonneRepositoryTest {
     }
 
     @Test
-    public void DontfindAPersonneByLastNAmeAndFirstNametest() {
+    public void DontfindAPersonneByFirstNametest() {
         PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(jsonReaderRepository);
         personneRepository.addNewPersonne(PERSONNE);
 
-        Personne personne = personneRepository.findByLastNameAndFirstName("aa","sa");
+        Personne personne = personneRepository.findByLastNameAndFirstName("aa","Sayd");
 
         assertThat(personne).isNull();
     }
+    @Test
+    public void DontfindAPersonneByLastName() {
+        PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(jsonReaderRepository);
+        personneRepository.addNewPersonne(PERSONNE);
 
+        Personne personne = personneRepository.findByLastNameAndFirstName("Julien","aa");
+
+        assertThat(personne).isNull();
+    }
     @Test
     public void udapteInformationOfAPersonneTest() {
         PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(jsonReaderRepository);

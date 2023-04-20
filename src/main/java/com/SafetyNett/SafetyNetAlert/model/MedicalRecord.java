@@ -6,7 +6,6 @@ import lombok.Generated;
 import java.util.List;
 
 @Data
-@Generated
 public class MedicalRecord {
 
     private String firstName;

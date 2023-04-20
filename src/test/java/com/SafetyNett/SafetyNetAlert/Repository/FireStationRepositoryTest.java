@@ -72,7 +72,6 @@ public class FireStationRepositoryTest {
         fireStationRepository.addAFireStation(fireStation);
 
         FireStation fireStationA = fireStationRepository.findByAdresse("adressNull");
-        List fireStationsInData = fireStationRepository.findAll();
 
         assertThat(fireStationA).isNull();
 

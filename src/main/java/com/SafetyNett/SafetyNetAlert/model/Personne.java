@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 @Data
-@Generated
 public class Personne {
 
     private String firstName;
