@@ -6,21 +6,27 @@ import com.SafetyNett.SafetyNetAlert.dto.PersonneDto;
 import com.SafetyNett.SafetyNetAlert.dto.PersonneDtos;
 import com.SafetyNett.SafetyNetAlert.service.SafetyAlertServiceTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.bytebuddy.matcher.ElementMatchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+
+import static net.bytebuddy.matcher.ElementMatchers.is;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -81,11 +87,17 @@ class SafetyNetAlertControllerTest {
 
         List<String> phoneNumbers = new ArrayList<>();
 
-        mockMvc.perform( MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                         .get("/phoneAlert")
                         .queryParam("firestation_number", String.valueOf(1))
-                        .content(asJsonString(phoneNumbers))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpectAll(
+                        status().isOk());
+
+
+
+
     }
+
+
 }

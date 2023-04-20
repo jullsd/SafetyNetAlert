@@ -1,10 +1,12 @@
 package com.SafetyNett.SafetyNetAlert.dto;
 
 import lombok.Data;
+import lombok.Generated;
 
 import java.util.List;
 
 @Data
+@Generated
 public class PersonnWithMedicalRecordDTO {
 
 

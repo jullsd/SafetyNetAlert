@@ -1,10 +1,12 @@
 package com.SafetyNett.SafetyNetAlert.model;
 
 import lombok.Data;
+import lombok.Generated;
 import org.apache.commons.lang3.builder.HashCodeExclude;
 
 
 @Data
+@Generated
 public class FireStation {
 
     private String address;

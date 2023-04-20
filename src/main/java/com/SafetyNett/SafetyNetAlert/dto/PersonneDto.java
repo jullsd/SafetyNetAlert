@@ -1,8 +1,10 @@
 package com.SafetyNett.SafetyNetAlert.dto;
 
 import lombok.Data;
+import lombok.Generated;
 
 @Data
+@Generated
 public class PersonneDto {
 
     private String firstName;

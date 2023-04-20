@@ -2,11 +2,13 @@ package com.SafetyNett.SafetyNetAlert.model;
 
 
 import lombok.Data;
+import lombok.Generated;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 @Data
+@Generated
 public class Personne {
 
     private String firstName;
