@@ -1,9 +1,12 @@
 package com.SafetyNett.SafetyNetAlert.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Generated;
 
+
 import java.util.List;
+import java.util.Objects;
 
 @Data
 public class MedicalRecord {
@@ -14,6 +17,8 @@ public class MedicalRecord {
     private String birthdate;
     private List<String> medications;
     private List<String> allergies;
+
+
 
     public MedicalRecord() {
     }
@@ -37,7 +42,20 @@ public class MedicalRecord {
                 '}';
     }
 
+    @Generated
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MedicalRecord that = ( MedicalRecord ) o;
+        return firstName.equals(that.firstName) && lastName.equals(that.lastName) && birthdate.equals(that.birthdate) && medications.equals(that.medications) && allergies.equals(that.allergies);
+    }
 
+    @Generated
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, birthdate, medications, allergies);
+    }
 
 
 

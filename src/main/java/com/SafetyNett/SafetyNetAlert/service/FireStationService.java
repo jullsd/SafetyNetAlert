@@ -18,7 +18,7 @@ public class FireStationService {
         this.fireStationsRepository = fireStationsRepository;
     }
 
-    public List<FireStation>  getFireStationsByNumber(int fireStationNumber) {
+    public List<FireStation> getFireStationsByNumber(int fireStationNumber) {
         List<FireStation> fireStationsResult =  new ArrayList<>();
         List<FireStation> fireStations = fireStationsRepository.findAll();
         for(FireStation fireStation : fireStations) {
@@ -30,7 +30,39 @@ public class FireStationService {
        return fireStationsResult;
     }
 
+    public List<String> getAllAdressAssociatedToFireStations(List<Integer> stations) {
+        List<String> addresses = new ArrayList<>();
+        List<FireStation> fireStations = fireStationsRepository.findAll();
+        for(FireStation fireStation : fireStations) {
+            for(Integer station : stations) {
+                if (fireStation.getStation() == station) {
+                    addresses.add(fireStation.getAddress());
+                }
+            }
+        }
+        return addresses;
+    }
+
+
+    public int  getFireStationsNumberByAdress(String address) {
+
+        List<FireStation> fireStations = fireStationsRepository.findAll();
+        int fireStationNumber = 0;
+
+
+        for(FireStation fireStation : fireStations) {
+            if (fireStation.getAddress().equals(address)) {
+
+             fireStationNumber = fireStation.getStation();
+            }
+
+        }
+        return  fireStationNumber;
+
+
+    }
 
 
 
 }
+

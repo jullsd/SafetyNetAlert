@@ -87,4 +87,129 @@ public class MedicalRecordServiceTest {
 
     }
 
-}
+    @Test
+    void getAllergiesByLastNameAndFirstNameWithAnOtherFirstName() {
+        MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepository);
+
+
+        List<MedicalRecord> medicalRecords =  new ArrayList<>();
+        List<String> medications = new ArrayList<>();
+        List<String> allergies = new ArrayList<>();
+        String cacahuete ="cacahuetes";
+        allergies.add(cacahuete);
+
+        MedicalRecord medicalRecord = new MedicalRecord(FIRST_NAME,LAST_NAME,BIRTHDATE,medications,allergies);
+        medicalRecords.add(medicalRecord);
+
+        when(medicalRecordRepository.findAll()).thenReturn(medicalRecords);
+
+
+      assertThat(medicalRecordService.getAllergiesByLastNameAndFirstName(OTHER_LAST_NAME,FIRST_NAME)).isNull();
+
+    }
+
+    @Test
+    void getAllergiesByLastNameAndFirstNameWithAnOtherLastName() {
+        MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepository);
+
+
+        List<MedicalRecord> medicalRecords =  new ArrayList<>();
+        List<String> medications = new ArrayList<>();
+        List<String> allergies = new ArrayList<>();
+        String cacahuete ="cacahuetes";
+        allergies.add(cacahuete);
+
+        MedicalRecord medicalRecord = new MedicalRecord(FIRST_NAME,LAST_NAME,BIRTHDATE,medications,allergies);
+        medicalRecords.add(medicalRecord);
+
+        when(medicalRecordRepository.findAll()).thenReturn(medicalRecords);
+
+
+        assertThat(medicalRecordService.getAllergiesByLastNameAndFirstName(LAST_NAME,OTHER_FIRST_NAME)).isNull();
+
+    }
+
+    @Test
+    void getAllergiesByLastNameAndFirstName() {
+
+        MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepository);
+
+
+        List<MedicalRecord> medicalRecords =  new ArrayList<>();
+        List<String> medications = new ArrayList<>();
+        List<String> allergies = new ArrayList<>();
+        String cacahuete ="cacahuetes";
+        allergies.add(cacahuete);
+
+        MedicalRecord medicalRecord = new MedicalRecord(FIRST_NAME,LAST_NAME,BIRTHDATE,medications,allergies);
+        medicalRecords.add(medicalRecord);
+
+        when(medicalRecordRepository.findAll()).thenReturn(medicalRecords);
+
+       assertThat(medicalRecordService.getAllergiesByLastNameAndFirstName(LAST_NAME,FIRST_NAME)).contains(cacahuete);
+
+    }
+    @Test
+    void getMedicationsByLastNameAndFirstNameWithAnOtherLastName() {
+        MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepository);
+
+
+        List<MedicalRecord> medicalRecords =  new ArrayList<>();
+        List<String> medications = new ArrayList<>();
+        List<String> allergies = new ArrayList<>();
+        String paracetamol ="paracetamol";
+        medications.add(paracetamol);
+
+        MedicalRecord medicalRecord = new MedicalRecord(FIRST_NAME,LAST_NAME,BIRTHDATE,medications,allergies);
+        medicalRecords.add(medicalRecord);
+
+        when(medicalRecordRepository.findAll()).thenReturn(medicalRecords);
+
+
+        assertThat(medicalRecordService.getMedicationsByLastNameAndFirstName(OTHER_LAST_NAME,FIRST_NAME)).isNull();
+
+    }
+
+    @Test
+    void getMedicationsByLastNameAndFirstNameWithAnOtherFirstName() {
+        MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepository);
+
+
+        List<MedicalRecord> medicalRecords =  new ArrayList<>();
+        List<String> medications = new ArrayList<>();
+        List<String> allergies = new ArrayList<>();
+        String paracetamol ="paracetamole";
+        medications.add(paracetamol);
+
+        MedicalRecord medicalRecord = new MedicalRecord(FIRST_NAME,LAST_NAME,BIRTHDATE,medications,allergies);
+        medicalRecords.add(medicalRecord);
+
+        when(medicalRecordRepository.findAll()).thenReturn(medicalRecords);
+
+
+        assertThat(medicalRecordService.getMedicationsByLastNameAndFirstName(LAST_NAME,OTHER_FIRST_NAME)).isNull();
+
+    }
+
+    @Test
+    void getMedicationsByLastNameAndFirstName() {
+
+        MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepository);
+
+
+        List<MedicalRecord> medicalRecords =  new ArrayList<>();
+        List<String> medications = new ArrayList<>();
+        List<String> allergies = new ArrayList<>();
+        String paracetamole ="paracetamole";
+        medications.add(paracetamole);
+
+        MedicalRecord medicalRecord = new MedicalRecord(FIRST_NAME,LAST_NAME,BIRTHDATE,medications,allergies);
+        medicalRecords.add(medicalRecord);
+
+        when(medicalRecordRepository.findAll()).thenReturn(medicalRecords);
+
+        assertThat(medicalRecordService.getMedicationsByLastNameAndFirstName(LAST_NAME,FIRST_NAME)).contains(paracetamole);
+
+    }
+
+    }

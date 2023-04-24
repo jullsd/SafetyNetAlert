@@ -2,12 +2,16 @@ package com.SafetyNett.SafetyNetAlert.model;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Generated;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.util.Objects;
+
 @Data
+@EqualsAndHashCode
 public class Personne {
 
     private String firstName;
@@ -17,6 +21,7 @@ public class Personne {
     private String zip;
     private String phone;
     private String email;
+
 
     public Personne() {
     }
@@ -43,6 +48,22 @@ public class Personne {
         this.phone = phone;
         this.email = email;
     }
+
+    @Generated
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Personne personne = ( Personne ) o;
+        return firstName.equals(personne.firstName) && lastName.equals(personne.lastName) && address.equals(personne.address) && city.equals(personne.city) && zip.equals(personne.zip) && phone.equals(personne.phone) && email.equals(personne.email);
+    }
+
+    @Generated
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, address, city, zip, phone, email);
+    }
+
 
 
 

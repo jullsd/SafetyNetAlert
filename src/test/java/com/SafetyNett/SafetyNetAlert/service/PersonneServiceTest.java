@@ -39,6 +39,8 @@ class PersonneServiceTest {
     private final String ZIP = "78530";
     private final String PHONE = "01323232323";
     private final String EMAIL = "ju.i@aa.com";
+
+
     @Test
     void getPersonnesByFireStations() {
 
@@ -213,4 +215,52 @@ class PersonneServiceTest {
 
 
     }
+
+    @Test
+    void findByLastNameAndFirstName() {
+
+        List<Personne> personnes =  new ArrayList<>();
+
+        PersonneService personneService = new PersonneService(personneRepository);
+
+        Personne personne = new Personne(FIRST_NAME,LAST_NAME,ADDRESS_OF_THE_PERSONNE,CITY,ZIP,PHONE,EMAIL);
+        personnes.add(personne);
+
+        when(personneRepository.findAll()).thenReturn(personnes);
+
+        assertThat(personneService.findByLastNameAndFirstName(FIRST_NAME,LAST_NAME)).isEqualTo(personne);
+
+    }
+    @Test
+    void dontFindByLastName() {
+
+        List<Personne> personnes =  new ArrayList<>();
+
+        PersonneService personneService = new PersonneService(personneRepository);
+
+        Personne personne = new Personne(FIRST_NAME,"Saya",ADDRESS_OF_THE_PERSONNE,CITY,ZIP,PHONE,EMAIL);
+        personnes.add(personne);
+
+        when(personneRepository.findAll()).thenReturn(personnes);
+
+        assertThat(personneService.findByLastNameAndFirstName(FIRST_NAME,LAST_NAME)).isNull();
+
+    }
+
+    @Test
+    void dontFindByFirstName() {
+
+        List<Personne> personnes =  new ArrayList<>();
+
+        PersonneService personneService = new PersonneService(personneRepository);
+
+        Personne personne = new Personne("aa",LAST_NAME,ADDRESS_OF_THE_PERSONNE,CITY,ZIP,PHONE,EMAIL);
+        personnes.add(personne);
+
+        when(personneRepository.findAll()).thenReturn(personnes);
+
+        assertThat(personneService.findByLastNameAndFirstName(FIRST_NAME,LAST_NAME)).isNull();
+
+    }
+
 }

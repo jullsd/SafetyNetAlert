@@ -12,8 +12,7 @@ import java.util.List;
 
 @Service
 public class MedicalRecordService {
-
-    MedicalRecordRepositoryDataMemory medicalRecordRepository;
+    private final MedicalRecordRepositoryDataMemory medicalRecordRepository;
 
     @Autowired
     public MedicalRecordService(MedicalRecordRepositoryDataMemory medicalRecordRepository) {
@@ -33,7 +32,31 @@ public class MedicalRecordService {
         return null;
 
     }
+    public List<String> getAllergiesByLastNameAndFirstName(String lastName, String firstName) {
+        List<MedicalRecord> medicalRecords = medicalRecordRepository.findAll();
 
+        for(MedicalRecord medicalRecord : medicalRecords) {
+            if (medicalRecord.getLastName().equals(lastName) && (medicalRecord.getFirstName().equals(firstName))) {
+                return medicalRecord.getAllergies();
+            }
+
+        }
+        return null;
+
+    }
+
+    public List<String> getMedicationsByLastNameAndFirstName(String lastName, String firstName) {
+        List<MedicalRecord> medicalRecords = medicalRecordRepository.findAll();
+
+        for(MedicalRecord medicalRecord : medicalRecords) {
+            if (medicalRecord.getLastName().equals(lastName) && (medicalRecord.getFirstName().equals(firstName))) {
+                return medicalRecord.getMedications();
+            }
+
+        }
+        return null;
+
+    }
 
 
 

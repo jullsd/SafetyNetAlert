@@ -2,6 +2,7 @@ package com.SafetyNett.SafetyNetAlert.service;
 
 import com.SafetyNett.SafetyNetAlert.dto.*;
 import com.SafetyNett.SafetyNetAlert.model.FireStation;
+import com.SafetyNett.SafetyNetAlert.model.Personne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,75 +29,10 @@ public class SafetyAlertService {
         this.ageCalulatorService = ageCalulatorService;
     }
 
-    /*
-
-    PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(dataReaderFromAJson);
-    MedicalRecordRepositoryDataMemory medicalRecordRepository = new MedicalRecordRepositoryDataMemory(dataReaderFromAJson);
-    List<Personne> allpersonnes = personneRepository.findAll();
-    List<MedicalRecord> medicalRecords = medicalRecordRepository.findAll();
-
-
-    TotalDTO totalDTO = new TotalDTO();
-
-
-
-
-    private List<Personne> perssonesAssociatedToAChild= new ArrayList<>();
-
-
-
-
-
-    private List<PersonnWithMedicalRecordDTO> personnesWithMedicalRecordAtOneAdress = new ArrayList<>();
-
-    List<String> adressesAssociatedToAFireStation = new ArrayList<>();
-
-
-
-    public int ageCalculation(String birthdate) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        LocalDate birthDate = LocalDate.parse(birthdate, format);
-        LocalDate today = LocalDate.now();
-        return Period.between(birthDate, today).getYears();
-    }
-
-
-
-    public List<String> getListOfAllergiesByPerosnne(Personne personne) {
-
-        for(MedicalRecord medicalRecord : medicalRecords) {
-            if (medicalRecord.getFirstName().equals(personne.getFirstName()) && (medicalRecord.getLastName()).equals(personne.getLastName()))
-
-             return    medicalRecord.getAllergies();
-
-        }
-        return null;
-    }
-
-    public List<String> getListOfMedicationsByPerosnne(Personne personne) {
-
-        for(MedicalRecord medicalRecord : medicalRecords) {
-            if (medicalRecord.getFirstName().equals(personne.getFirstName()) && (medicalRecord.getLastName()).equals(personne.getLastName()))
-
-                return    medicalRecord.getMedications();
-
-        }
-        return null;
-    }
-    public List<Personne> personneAssociatedToAChildI(String address) {
-
-        for(Personne personne : allpersonnes) {
-            if ((personne.getAddress()).equals(address)) {
-            perssonesAssociatedToAChild.add(personne);
-
-            }
-        } return perssonesAssociatedToAChild;
-    }
-*/
 
     public List<PersonneDto> getPersonnesByFireStationNumber(int fireStationNumber) {
 
-        //TODO to return FIreStationDto
+
         List<FireStation> fireStations = fireStationService.getFireStationsByNumber(fireStationNumber);
         List<PersonneDto> personneDtos = personneService.getPersonnesByFireStations(fireStations);
         return  personneDtos;
@@ -130,7 +66,6 @@ public class SafetyAlertService {
     }
 
 
-    //This function should return a list of personnes for 1 fire sation number
     public PersonneDtos getPersonnesByFireStation(int fireStationNumber) {
        List<PersonneDto> personnes = getPersonnesByFireStationNumber(fireStationNumber);
        int adultCount = getAdultCountByPersonnes(personnes);
@@ -157,6 +92,67 @@ public class SafetyAlertService {
 
         return phoneNumbers;
     }
+
+    public List<PersonWithMedicalRecordDto> getPersonWithMedicalRecordByAdress(String address) {
+
+        List<PersonneDto> personnes = personneService.getPersonnesByAdress(address);
+        List<PersonWithMedicalRecordDto> personsWithMedicalRecordDto = new ArrayList<>();
+
+
+        for(PersonneDto personneDto: personnes) {
+            String birthday = medicalRecordService.getBirthdayByLastNameAndFirstName(personneDto.getLastName(),personneDto.getFirstName());
+            List<String> allergies = medicalRecordService.getAllergiesByLastNameAndFirstName(personneDto.getLastName(),personneDto.getFirstName());
+            List<String> medications = medicalRecordService.getMedicationsByLastNameAndFirstName(personneDto.getLastName(),personneDto.getFirstName());
+            int ageOfPersoneDto = ageCalulatorService.ageCalculation(birthday);
+
+           PersonWithMedicalRecordDto personWithMedicalRecordDto = new PersonWithMedicalRecordDto(personneDto.getLastName(),personneDto.getPhone(),ageOfPersoneDto
+           ,medications,allergies);
+
+            personsWithMedicalRecordDto.add(personWithMedicalRecordDto);
+
+        }
+        return personsWithMedicalRecordDto;
+
+    }
+
+    public PersonWithMedicalRecordDtos getPersonsWithMedicalRecordAndFireNumberByAdress(String address) {
+
+        PersonWithMedicalRecordDtos personsWithMedicalRecordDtos = new PersonWithMedicalRecordDtos(
+                fireStationService.getFireStationsNumberByAdress(address),getPersonWithMedicalRecordByAdress(address));
+
+        return  personsWithMedicalRecordDtos;
+
+
+    }
+
+    public PersonInfoWithMedicalRecordDTO getPersonInfoWithMedicalRecordByFirstNameAndLastName(String firstName, String lastName) {
+
+        Personne personne = personneService.findByLastNameAndFirstName(firstName,lastName);
+        String birthday = medicalRecordService.getBirthdayByLastNameAndFirstName(lastName,firstName);
+        List<String> allergies = medicalRecordService.getAllergiesByLastNameAndFirstName(lastName,firstName);
+        List<String> medications = medicalRecordService.getMedicationsByLastNameAndFirstName(lastName,firstName);
+
+        PersonInfoWithMedicalRecordDTO personInfoWithMedicalRecordDTO = new PersonInfoWithMedicalRecordDTO(personne.getLastName(),
+                personne.getAddress(), ageCalulatorService.ageCalculation(birthday), personne.getEmail(),medications,allergies);
+
+          return personInfoWithMedicalRecordDTO;
+
+
+    }
+
+    public List<PerssonesAtOneAdresseDto> getPersonsAtOneAddressWithMedicalRecordByFireStationsNumbers(List<Integer> stations)  {
+
+        List<PerssonesAtOneAdresseDto> personsAtOneAdresse = new ArrayList<>();
+        List<String> addresses = fireStationService.getAllAdressAssociatedToFireStations(stations);
+
+        for(String address : addresses) {
+        PerssonesAtOneAdresseDto perssonesAtOneAdresseDto = new PerssonesAtOneAdresseDto(address,getPersonWithMedicalRecordByAdress(address));
+            personsAtOneAdresse.add(perssonesAtOneAdresseDto);
+        }
+
+        return  personsAtOneAdresse;
+    }
+
 
 
     public List<ChildrenDto> getChildrensbyAdress(String address) {
@@ -190,7 +186,7 @@ public class SafetyAlertService {
            return personnesAssociatedToAChild;
     }
 
-    public ChildrenDtos getChildrenAndPersonnesAssociatedToAChildByAdress(String address) {
+    public ChildrenDtos getChildrenAndPersonnesAssociatedToAChildByAdress(String address) throws Exception {
 
         ChildrenDtos result = new ChildrenDtos(getChildrensbyAdress(address),getPersonnesAssociatedToAChildByAdress(address));
 

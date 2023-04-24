@@ -58,6 +58,16 @@ public class PersonneService {
 
         return personneDtos;
     }
+    public Personne findByLastNameAndFirstName( String firstName,String lastName) {
+
+        List<Personne> personnes = personneRepository.findAll();
+
+        for(Personne personne : personnes) {
+            if ((personne.getFirstName().equals(firstName)) && (personne.getLastName().equals(lastName))) {
+                return personne; }}
+
+        return null;
+    }
 
     public List<String> getPhoneNumbersByAdress(List<String> adresses) {
 
@@ -90,27 +100,6 @@ public class PersonneService {
 
 
 
-
-
-
-    /*
-
-    public List<PersonnWithMedicalRecordDTO> getPersonnesByAdresseWithMedicalRecord(String address) {
-
-        List<Personne> allpersonnes = personneRepository.findAll();
-
-        for(Personne personne : allpersonnes) {
-            if ((personne.getAddress()).equals(address)) {
-
-                PersonnWithMedicalRecordDTO personnWithMedicalRecordDTO = new PersonnWithMedicalRecordDTO(personne.getLastName(),getListOfMedicationsByPerosnne(personne),
-                        getListOfAllergiesByPerosnne(personne),calculBirthDateOfApersonne2(personne),personne.getPhone());
-
-
-                personnesWithMedicalRecordAtOneAdress.add(personnWithMedicalRecordDTO);
-            }
-        }
-        return personnesWithMedicalRecordAtOneAdress;
-        */
 
     }
 
