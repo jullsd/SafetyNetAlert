@@ -30,10 +30,10 @@ public class SafetyAlertService {
     }
 
 
-    public List<PersonneDto> getPersonnesByFireStationNumber(int fireStationNumber) {
+    public List<PersonneDto> getPersonnesByFireStationNumber(int stationNumber) {
 
 
-        List<FireStation> fireStations = fireStationService.getFireStationsByNumber(fireStationNumber);
+        List<FireStation> fireStations = fireStationService.getFireStationsByNumber(stationNumber);
         List<PersonneDto> personneDtos = personneService.getPersonnesByFireStations(fireStations);
         return  personneDtos;
 
@@ -66,8 +66,8 @@ public class SafetyAlertService {
     }
 
 
-    public PersonneDtos getPersonnesByFireStation(int fireStationNumber) {
-       List<PersonneDto> personnes = getPersonnesByFireStationNumber(fireStationNumber);
+    public PersonneDtos getPersonnesByFireStation(int stationNumber) {
+       List<PersonneDto> personnes = getPersonnesByFireStationNumber(stationNumber);
        int adultCount = getAdultCountByPersonnes(personnes);
        int childrenCount = getChildrenCountByPersonnes(personnes);
 

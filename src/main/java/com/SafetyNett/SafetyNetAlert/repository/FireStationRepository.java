@@ -13,7 +13,7 @@ public interface FireStationRepository {
 
     FireStation findByAdresse(String adress);
 
-    List<FireStation> deleteAFireStation(FireStation fireStation);
+   void deleteAFireStation(FireStation fireStation);
 
     FireStation udapteAFireStaion(FireStation fireStation);
 

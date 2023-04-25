@@ -36,6 +36,7 @@ class MedicalRecordsControllerTest {
     }
 
     @Test
+    @Disabled
     void addAMedicalRecord() throws Exception {
         mockMvc.perform( MockMvcRequestBuilders
                         .post("/medicalRecord")

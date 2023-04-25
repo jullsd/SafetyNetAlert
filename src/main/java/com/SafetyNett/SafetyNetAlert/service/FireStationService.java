@@ -2,6 +2,7 @@ package com.SafetyNett.SafetyNetAlert.service;
 
 import com.SafetyNett.SafetyNetAlert.model.FireStation;
 import com.SafetyNett.SafetyNetAlert.repository.DataReaderFromAJson;
+import com.SafetyNett.SafetyNetAlert.repository.FireStationRepository;
 import com.SafetyNett.SafetyNetAlert.repository.FireStationRepositoryDataMemory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,17 +13,17 @@ import java.util.List;
 @Service
 public class FireStationService {
 
-    FireStationRepositoryDataMemory fireStationsRepository;
+    FireStationRepository fireStationsRepository;
     @Autowired
-    public FireStationService(FireStationRepositoryDataMemory fireStationsRepository) {
+    public FireStationService(FireStationRepository fireStationsRepository) {
         this.fireStationsRepository = fireStationsRepository;
     }
 
-    public List<FireStation> getFireStationsByNumber(int fireStationNumber) {
+    public List<FireStation> getFireStationsByNumber(int stationNumber) {
         List<FireStation> fireStationsResult =  new ArrayList<>();
         List<FireStation> fireStations = fireStationsRepository.findAll();
         for(FireStation fireStation : fireStations) {
-            if (fireStation.getStation() == fireStationNumber) {
+            if (fireStation.getStation() == stationNumber) {
                 fireStationsResult.add(fireStation);
             }
         }

@@ -2,6 +2,7 @@ package com.SafetyNett.SafetyNetAlert.controller;
 
 
 import com.SafetyNett.SafetyNetAlert.model.MedicalRecord;
+import com.SafetyNett.SafetyNetAlert.repository.MedicalRecordRepository;
 import com.SafetyNett.SafetyNetAlert.repository.MedicalRecordRepositoryDataMemory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,7 +16,7 @@ public class
 MedicalRecordsController {
 
     @Autowired
-    MedicalRecordRepositoryDataMemory medicalRecordRepository;
+    MedicalRecordRepository medicalRecordRepository;
 
 
     @PostMapping("/medicalRecord")

@@ -10,7 +10,7 @@ public interface PersonneRepository {
 
     List<Personne> findAll();
     Personne findByLastNameAndFirstName(String lastName, String firstName);
-    List<Personne> deleteAPersonne(Personne personne);
+    void deleteAPersonne(Personne personne);
     Personne addNewPersonne(Personne personne);
 
     Personne udapteInformationOfaPersonne(Personne personne);

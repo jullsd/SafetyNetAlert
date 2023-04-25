@@ -3,6 +3,7 @@ package com.SafetyNett.SafetyNetAlert.controller;
 
 import com.SafetyNett.SafetyNetAlert.dto.PersonneDtos;
 import com.SafetyNett.SafetyNetAlert.model.FireStation;
+import com.SafetyNett.SafetyNetAlert.repository.FireStationRepository;
 import com.SafetyNett.SafetyNetAlert.repository.FireStationRepositoryDataMemory;
 import com.SafetyNett.SafetyNetAlert.service.SafetyAlertService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +22,10 @@ import static org.springframework.http.ResponseEntity.status;
 @Slf4j
 public class FireStationsController {
 
-    @Autowired
-    FireStationRepositoryDataMemory fireStationRepository;
+   @Autowired
+    FireStationRepository fireStationRepository;
     @PostMapping("/firestation")
-    public ResponseEntity addAFireStation(@RequestBody FireStation fireStation){
+    public ResponseEntity<HttpStatus> addAFireStation(@RequestBody FireStation fireStation){
 
         fireStationRepository.addAFireStation(fireStation);
 

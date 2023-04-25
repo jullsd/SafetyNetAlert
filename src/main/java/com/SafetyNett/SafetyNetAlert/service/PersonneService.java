@@ -4,6 +4,7 @@ import com.SafetyNett.SafetyNetAlert.dto.PersonneDto;
 import com.SafetyNett.SafetyNetAlert.model.FireStation;
 import com.SafetyNett.SafetyNetAlert.model.Personne;
 import com.SafetyNett.SafetyNetAlert.repository.DataReaderFromAJson;
+import com.SafetyNett.SafetyNetAlert.repository.PersonneRepository;
 import com.SafetyNett.SafetyNetAlert.repository.PersonneRepositoryDataMemory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,9 @@ import java.util.List;
 public class PersonneService {
 
 
-    PersonneRepositoryDataMemory personneRepository;
+    PersonneRepository personneRepository;
     @Autowired
-    public PersonneService(PersonneRepositoryDataMemory personneRepository) {
+    public PersonneService(PersonneRepository personneRepository) {
         this.personneRepository = personneRepository;
     }
 
@@ -91,8 +92,7 @@ public class PersonneService {
         List<String> emails = new ArrayList<>();
 
         for(Personne personne : allpersonnes) {
-            if ((personne.getCity()).equals(city)) ;
-            emails.add(personne.getEmail());
+            if ((personne.getCity()).equals(city)) emails.add(personne.getEmail());
         }
         return emails;
     }

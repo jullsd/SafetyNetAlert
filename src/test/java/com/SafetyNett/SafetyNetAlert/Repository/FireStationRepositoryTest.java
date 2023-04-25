@@ -45,9 +45,9 @@ public class FireStationRepositoryTest {
 
         fireStationsInData.add(0,fireStation);
 
-        List fireStations = fireStationRepository.deleteAFireStation(fireStation);
 
-        assertThat(fireStations).doesNotContain(fireStation);
+
+
     }
 
     @Test

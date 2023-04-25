@@ -4,6 +4,7 @@ package com.SafetyNett.SafetyNetAlert.controller;
 import com.SafetyNett.SafetyNetAlert.dto.ChildrenDto;
 import com.SafetyNett.SafetyNetAlert.dto.ChildrenDtos;
 import com.SafetyNett.SafetyNetAlert.model.Personne;
+import com.SafetyNett.SafetyNetAlert.repository.PersonneRepository;
 import com.SafetyNett.SafetyNetAlert.repository.PersonneRepositoryDataMemory;
 import com.SafetyNett.SafetyNetAlert.service.PersonneService;
 import com.SafetyNett.SafetyNetAlert.service.SafetyAlertService;
@@ -20,7 +21,7 @@ import java.util.List;
 public class PersonneController {
 
     @Autowired
-    PersonneRepositoryDataMemory personneRepository;
+    PersonneRepository personneRepository;
 
     @Autowired
     PersonneService personneService;

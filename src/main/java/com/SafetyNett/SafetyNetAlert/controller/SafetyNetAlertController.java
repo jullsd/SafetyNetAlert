@@ -42,28 +42,28 @@ public class SafetyNetAlertController {
     }
 
     @GetMapping( "/firestation" )
-    public ResponseEntity<PersonneDtos> getPerssonesDtosAssociatedToAFireStation(@RequestParam final int fireStationNumber) {
-        log.info("Call of getPersonnesDtosAssociatedToAFireStation with fireStationNumber : {}", fireStationNumber);
+    public ResponseEntity<PersonneDtos> getPerssonesDtosAssociatedToAFireStation(@RequestParam final int stationNumber) {
+        log.info("Call of getPersonnesDtosAssociatedToAFireStation with fireStationNumber : {}", stationNumber);
         try {
-            PersonneDtos personneDtos = safetyAlertService.getPersonnesByFireStation(fireStationNumber);
+            PersonneDtos personneDtos = safetyAlertService.getPersonnesByFireStation(stationNumber);
             log.info("Response to getPersonnesDtosAssociatedToAFireStation {}", personneDtos);
             return new ResponseEntity<>(personneDtos, HttpStatus.OK);
         } catch (Exception e) {
-            log.error("Failed to getChildrenListAtOneAdress  with {}", fireStationNumber);
+            log.error("Failed to getChildrenListAtOneAdress  with {}", stationNumber);
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
         }
     }
 
     @GetMapping( "/phoneAlert" )
-    public ResponseEntity<List<String>> getPhoneNumbersAssociatedToAFireStation(@RequestParam final int firestation_number) {
-        log.info("Call of getPhoneNumbersAssociatedToAFireStation with firestation_number : {}", firestation_number);
+    public ResponseEntity<List<String>> getPhoneNumbersAssociatedToAFireStation(@RequestParam final int firestation) {
+        log.info("Call of getPhoneNumbersAssociatedToAFireStation with firestation_number : {}", firestation);
         try {
-            List<String> phoneNumbers = safetyAlertService.getPhoneNumbersByFireStation(firestation_number);
+            List<String> phoneNumbers = safetyAlertService.getPhoneNumbersByFireStation(firestation);
             log.info("Response to getPhoneNumbersAssociatedToAFireStation {}", phoneNumbers);
             return new ResponseEntity<>(phoneNumbers, HttpStatus.OK);
         } catch (Exception e) {
-            log.error("Failed to getPhoneNumbersAssociatedToAFireStation with {}", firestation_number);
+            log.error("Failed to getPhoneNumbersAssociatedToAFireStation with {}", firestation);
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
     }

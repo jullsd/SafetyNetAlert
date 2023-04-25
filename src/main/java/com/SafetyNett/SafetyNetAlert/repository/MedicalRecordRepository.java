@@ -16,6 +16,6 @@ public interface MedicalRecordRepository {
 
     MedicalRecord udapteMedicalRecord(MedicalRecord medicalRecord);
 
-    List<MedicalRecord> deleteAMedicalRecord(MedicalRecord medicalRecord);
+   void deleteAMedicalRecord(MedicalRecord medicalRecord);
 
 }

@@ -17,16 +17,16 @@ import java.util.List;
 public class DataReaderFromAJson {
 
 
-    public List personne() {
+    public List<Personne>  personne() {
 
-        List<Personne> personnes = new ArrayList<>();
+        List<Personne> personnes;
 
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(Paths.get("src/main/resources/Data.json").toFile());
             ObjectReader reader = mapper.readerFor(new TypeReference<List<Personne>>() {
             });
-            personnes = reader.readValue(node.get("persons"));
+          personnes = reader.readValue(node.get("persons"));
 
         } catch (IOException ex) {
             throw new RuntimeException(ex);
@@ -36,9 +36,9 @@ public class DataReaderFromAJson {
     }
 
 
-    public List medicalRecords() {
+    public List<MedicalRecord> medicalRecords() {
 
-        List<MedicalRecord> medicalRecords = new ArrayList<>();
+        List<MedicalRecord> medicalRecords;
 
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -53,9 +53,9 @@ public class DataReaderFromAJson {
 
         return medicalRecords;
     }
-    public List fireStations() {
+    public List<FireStation> fireStations() {
 
-        List<FireStation> fireStations = new ArrayList<>();
+        List<FireStation> fireStations;
 
         try {
             ObjectMapper mapper = new ObjectMapper();

@@ -3,6 +3,7 @@ package com.SafetyNett.SafetyNetAlert.service;
 import com.SafetyNett.SafetyNetAlert.model.FireStation;
 import com.SafetyNett.SafetyNetAlert.model.MedicalRecord;
 import com.SafetyNett.SafetyNetAlert.repository.DataReaderFromAJson;
+import com.SafetyNett.SafetyNetAlert.repository.MedicalRecordRepository;
 import com.SafetyNett.SafetyNetAlert.repository.MedicalRecordRepositoryDataMemory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,10 @@ import java.util.List;
 
 @Service
 public class MedicalRecordService {
-    private final MedicalRecordRepositoryDataMemory medicalRecordRepository;
+    MedicalRecordRepository medicalRecordRepository;
 
     @Autowired
-    public MedicalRecordService(MedicalRecordRepositoryDataMemory medicalRecordRepository) {
+    public MedicalRecordService(MedicalRecordRepository medicalRecordRepository) {
         this.medicalRecordRepository = medicalRecordRepository;
     }
 

@@ -50,12 +50,12 @@ public class PersonneRepositoryDataMemory implements PersonneRepository {
     }
 
     @Override
-    public List<Personne> deleteAPersonne(Personne personne) {
-
-        findByLastNameAndFirstName(personne.getLastName(), personne.getFirstName());
+    public void deleteAPersonne(Personne personne) {
+        personnes = findAll();
+        personne = findByLastNameAndFirstName(personne.getLastName(), personne.getFirstName());
         personnes.remove(personne);
 
-        return personnes;
+
 
     }
 
@@ -63,7 +63,7 @@ public class PersonneRepositoryDataMemory implements PersonneRepository {
     public Personne udapteInformationOfaPersonne(Personne personne) {
 
 
-        findByLastNameAndFirstName(personne.getLastName(), personne.getFirstName());
+        personne = findByLastNameAndFirstName(personne.getLastName(), personne.getFirstName());
         int personneIndex = personnes.indexOf(findByLastNameAndFirstName(personne.getLastName(), personne.getFirstName()));
         personnes.set(personneIndex, personne);
 

@@ -53,20 +53,22 @@ public class FireStationRepositoryDataMemory implements  FireStationRepository{
     }
 
     @Override
-    public List<FireStation> deleteAFireStation(FireStation fireStation) {
-        findByAdresse(fireStation.getAddress());
+    public void deleteAFireStation(FireStation fireStation) {
+
+
+        fireStation = findByAdresse(fireStation.getAddress());
 
         fireStations.remove(fireStation);
 
 
 
-        return fireStations;
+
 
     }
 
     @Override
     public FireStation udapteAFireStaion(FireStation fireStation) {
-        findByAdresse(fireStation.getAddress());
+         fireStation = findByAdresse(fireStation.getAddress());
         int fireStationIndex = fireStations.indexOf(findByAdresse(fireStation.getAddress()));
         fireStations.set(fireStationIndex,fireStation);
 

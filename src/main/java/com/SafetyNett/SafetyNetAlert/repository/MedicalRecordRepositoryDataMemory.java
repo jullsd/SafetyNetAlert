@@ -11,10 +11,10 @@ import java.util.List;
 public class MedicalRecordRepositoryDataMemory implements MedicalRecordRepository {
 
     @Autowired
-  private DataReaderFromAJson dataReaderFromAJson;
+     DataReaderFromAJson dataReaderFromAJson;
 
     private List<MedicalRecord> medicalRecords = new ArrayList<>();
-
+     @Autowired
     public MedicalRecordRepositoryDataMemory(DataReaderFromAJson dataReaderFromAJson) {
         this.dataReaderFromAJson = dataReaderFromAJson;
         medicalRecords.addAll(dataReaderFromAJson.medicalRecords());
@@ -52,9 +52,9 @@ public class MedicalRecordRepositoryDataMemory implements MedicalRecordRepositor
     }
 
     @Override
-    public List<MedicalRecord> deleteAMedicalRecord(MedicalRecord medicalRecord) {
-        findByLastNameAndFirstName(medicalRecord.getLastName(),medicalRecord.getFirstName());
+    public void deleteAMedicalRecord(MedicalRecord medicalRecord) {
+        medicalRecord = findByLastNameAndFirstName(medicalRecord.getLastName(),medicalRecord.getFirstName());
         medicalRecords.remove(medicalRecord);
-        return null;
+
     }
 }
