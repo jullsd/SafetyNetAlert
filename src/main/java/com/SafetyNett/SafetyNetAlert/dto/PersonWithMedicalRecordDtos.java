@@ -1,6 +1,5 @@
 package com.SafetyNett.SafetyNetAlert.dto;
 
-import lombok.Data;
 import lombok.Generated;
 
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ public class PersonWithMedicalRecordDtos {
 
     private int fireStationNumber;
     private List<PersonWithMedicalRecordDto> personsWithMedicalRecordDtos;
+
     public PersonWithMedicalRecordDtos(int fireStationNumber, List<PersonWithMedicalRecordDto> personsWithMedicalRecordDtos) {
         this.fireStationNumber = fireStationNumber;
         this.personsWithMedicalRecordDtos = new ArrayList<>(personsWithMedicalRecordDtos);
@@ -25,7 +25,7 @@ public class PersonWithMedicalRecordDtos {
     }
 
     public List<PersonWithMedicalRecordDto> getPersonsWithMedicalRecordDtos() {
-        return  new ArrayList<>(personsWithMedicalRecordDtos);
+        return new ArrayList<>(personsWithMedicalRecordDtos);
     }
 
     public void setPersonsWithMedicalRecordDtos(List<PersonWithMedicalRecordDto> personsWithMedicalRecordDtos) {

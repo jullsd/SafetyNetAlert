@@ -4,9 +4,6 @@ package com.SafetyNett.SafetyNetAlert.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.Objects;
 
@@ -63,8 +60,6 @@ public class Personne {
     public int hashCode() {
         return Objects.hash(firstName, lastName, address, city, zip, phone, email);
     }
-
-
 
 
 }

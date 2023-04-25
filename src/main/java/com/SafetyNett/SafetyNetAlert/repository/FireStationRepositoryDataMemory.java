@@ -10,12 +10,13 @@ import java.util.List;
 
 @Repository
 @Slf4j
-public class FireStationRepositoryDataMemory implements  FireStationRepository{
+public class FireStationRepositoryDataMemory implements FireStationRepository {
 
-
+    @Autowired
     DataReaderFromAJson dataReaderFromAJson;
 
     private List<FireStation> fireStations = new ArrayList<>();
+
     @Autowired
     public FireStationRepositoryDataMemory(DataReaderFromAJson dataReaderFromAJson) {
         this.dataReaderFromAJson = dataReaderFromAJson;
@@ -61,16 +62,13 @@ public class FireStationRepositoryDataMemory implements  FireStationRepository{
         fireStations.remove(fireStation);
 
 
-
-
-
     }
 
     @Override
     public FireStation udapteAFireStaion(FireStation fireStation) {
-         fireStation = findByAdresse(fireStation.getAddress());
+        fireStation = findByAdresse(fireStation.getAddress());
         int fireStationIndex = fireStations.indexOf(findByAdresse(fireStation.getAddress()));
-        fireStations.set(fireStationIndex,fireStation);
+        fireStations.set(fireStationIndex, fireStation);
 
 
         return fireStation;

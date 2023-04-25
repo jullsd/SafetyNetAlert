@@ -1,13 +1,9 @@
 package com.SafetyNett.SafetyNetAlert.controller;
 
-
-import com.SafetyNett.SafetyNetAlert.model.FireStation;
 import com.SafetyNett.SafetyNetAlert.model.MedicalRecord;
 import com.SafetyNett.SafetyNetAlert.repository.MedicalRecordRepository;
-import com.SafetyNett.SafetyNetAlert.repository.MedicalRecordRepositoryDataMemory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,22 +36,22 @@ MedicalRecordsController {
         try {
             log.info("Delete firestation : {} ", medicalRecord);
             medicalRecordRepository.deleteAMedicalRecord(medicalRecord);
-            return new ResponseEntity<>( HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
 
-    } catch (Exception e) {
-        log.error("Failed to delete medicalRecord  with {}", medicalRecord);
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            log.error("Failed to delete medicalRecord  with {}", medicalRecord);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
-    }
 
 
-    @PutMapping("/medicalRecord")
+    @PutMapping( "/medicalRecord" )
     public ResponseEntity<MedicalRecord> udapteMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
         log.info("Call of udapteMedicalRecord with  medicalRecord : {}", medicalRecord);
         try {
             log.info("Udapte medicalRecord : {} ", medicalRecord);
-        medicalRecord = medicalRecordRepository.udapteMedicalRecord(medicalRecord);
-            return new ResponseEntity<>(medicalRecord,HttpStatus.ACCEPTED);
+            medicalRecord = medicalRecordRepository.udapteMedicalRecord(medicalRecord);
+            return new ResponseEntity<>(medicalRecord, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             log.error("Failed to udapteMedicalRecord medicalRecord  with {}", medicalRecord);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

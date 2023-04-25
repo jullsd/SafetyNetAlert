@@ -3,7 +3,6 @@ package com.SafetyNett.SafetyNetAlert.service;
 import com.SafetyNett.SafetyNetAlert.model.FireStation;
 import com.SafetyNett.SafetyNetAlert.repository.DataReaderFromAJson;
 import com.SafetyNett.SafetyNetAlert.repository.FireStationRepository;
-import com.SafetyNett.SafetyNetAlert.repository.FireStationRepositoryDataMemory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +12,18 @@ import java.util.List;
 @Service
 public class FireStationService {
 
+    DataReaderFromAJson dataReaderFromAJson;
+
     FireStationRepository fireStationsRepository;
+
+
     @Autowired
     public FireStationService(FireStationRepository fireStationsRepository) {
         this.fireStationsRepository = fireStationsRepository;
     }
 
     public List<FireStation> getFireStationsByNumber(int stationNumber) {
-        List<FireStation> fireStationsResult =  new ArrayList<>();
+        List<FireStation> fireStationsResult = new ArrayList<>();
         List<FireStation> fireStations = fireStationsRepository.findAll();
         for(FireStation fireStation : fireStations) {
             if (fireStation.getStation() == stationNumber) {
@@ -28,8 +31,8 @@ public class FireStationService {
 
             }
         }
-      
-       return fireStationsResult;
+
+        return fireStationsResult;
     }
 
     public List<String> getAllAdressAssociatedToFireStations(List<Integer> stations) {
@@ -46,7 +49,7 @@ public class FireStationService {
     }
 
 
-    public int  getFireStationsNumberByAdress(String address) {
+    public int getFireStationsNumberByAdress(String address) {
 
         List<FireStation> fireStations = fireStationsRepository.findAll();
         int fireStationNumber = 0;
@@ -55,15 +58,14 @@ public class FireStationService {
         for(FireStation fireStation : fireStations) {
             if (fireStation.getAddress().equals(address)) {
 
-             fireStationNumber = fireStation.getStation();
+                fireStationNumber = fireStation.getStation();
             }
 
         }
-        return  fireStationNumber;
+        return fireStationNumber;
 
 
     }
-
 
 
 }

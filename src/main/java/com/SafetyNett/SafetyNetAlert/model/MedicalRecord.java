@@ -1,7 +1,5 @@
 package com.SafetyNett.SafetyNetAlert.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Generated;
 
 
@@ -95,9 +93,6 @@ public class MedicalRecord {
     public int hashCode() {
         return Objects.hash(firstName, lastName, birthdate, medications, allergies);
     }
-
-
-
 
 
 }

@@ -1,6 +1,5 @@
 package com.SafetyNett.SafetyNetAlert.dto;
 
-import lombok.Data;
 import lombok.Generated;
 
 import java.util.ArrayList;
@@ -18,6 +17,7 @@ public class PersonWithMedicalRecordDto {
     private List<String> medications;
 
     private List<String> allergies;
+
     public String getLastName() {
         return lastName;
     }
@@ -43,11 +43,11 @@ public class PersonWithMedicalRecordDto {
     }
 
     public List<String> getMedications() {
-        return  new ArrayList<>(medications);
+        return new ArrayList<>(medications);
     }
 
     public void setMedications(List<String> medications) {
-        this.medications =  new ArrayList<>(medications);
+        this.medications = new ArrayList<>(medications);
     }
 
     public List<String> getAllergies() {
@@ -63,10 +63,9 @@ public class PersonWithMedicalRecordDto {
         this.lastName = lastName;
         this.phone = phone;
         this.age = age;
-        this.medications =  new ArrayList<>(medications);
+        this.medications = new ArrayList<>(medications);
         this.allergies = new ArrayList<>(allergies);
     }
-
 
 
 }

@@ -11,11 +11,12 @@ public interface FireStationRepository {
 
 
     List<FireStation> findAll();
+
     FireStation addAFireStation(FireStation fireStation);
 
     FireStation findByAdresse(String adress);
 
-   void deleteAFireStation(FireStation fireStation);
+    void deleteAFireStation(FireStation fireStation);
 
     FireStation udapteAFireStaion(FireStation fireStation);
 

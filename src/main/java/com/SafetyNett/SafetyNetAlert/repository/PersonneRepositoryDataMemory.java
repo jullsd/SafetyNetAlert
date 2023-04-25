@@ -1,6 +1,5 @@
 package com.SafetyNett.SafetyNetAlert.repository;
 
-import com.SafetyNett.SafetyNetAlert.model.MedicalRecord;
 import com.SafetyNett.SafetyNetAlert.model.Personne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -54,7 +53,6 @@ public class PersonneRepositoryDataMemory implements PersonneRepository {
         personnes = findAll();
         personne = findByLastNameAndFirstName(personne.getLastName(), personne.getFirstName());
         personnes.remove(personne);
-
 
 
     }

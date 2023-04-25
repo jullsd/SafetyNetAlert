@@ -13,11 +13,12 @@ import java.io.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
 @Repository
 public class DataReaderFromAJson {
 
 
-    public List<Personne>  personne() {
+    public List<Personne> personne() {
 
         List<Personne> personnes;
 
@@ -26,7 +27,7 @@ public class DataReaderFromAJson {
             JsonNode node = mapper.readTree(Paths.get("src/main/resources/Data.json").toFile());
             ObjectReader reader = mapper.readerFor(new TypeReference<List<Personne>>() {
             });
-          personnes = reader.readValue(node.get("persons"));
+            personnes = reader.readValue(node.get("persons"));
 
         } catch (IOException ex) {
             throw new RuntimeException(ex);
@@ -53,6 +54,7 @@ public class DataReaderFromAJson {
 
         return medicalRecords;
     }
+
     public List<FireStation> fireStations() {
 
         List<FireStation> fireStations;
@@ -70,7 +72,6 @@ public class DataReaderFromAJson {
 
         return fireStations;
     }
-
 
 
 }

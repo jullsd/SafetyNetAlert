@@ -21,7 +21,7 @@ import static org.springframework.http.ResponseEntity.status;
 @Slf4j
 public class FireStationsController {
 
-   @Autowired
+    @Autowired
     FireStationRepository fireStationRepository;
 
     @PostMapping( "/firestation" )
@@ -37,33 +37,31 @@ public class FireStationsController {
         }
     }
 
-    @DeleteMapping("/firestation")
-    public ResponseEntity<HttpStatus> deleteAFireStation(@RequestBody FireStation fireStation){
+    @DeleteMapping( "/firestation" )
+    public ResponseEntity<HttpStatus> deleteAFireStation(@RequestBody FireStation fireStation) {
         log.info("Call of deleteAFireStation with  fireStation : {}", fireStation);
         try {
             fireStationRepository.deleteAFireStation(fireStation);
             log.info("Delete firestation : {} ", fireStation);
             return new ResponseEntity<>(HttpStatus.OK);
-        }
-        catch (Exception e) {
-            log.error("Failed to delete firestation with {}",fireStation);
+        } catch (Exception e) {
+            log.error("Failed to delete firestation with {}", fireStation);
 
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PutMapping("/firestation")
+    @PutMapping( "/firestation" )
     public ResponseEntity<FireStation> udapteAFireStation(@RequestBody FireStation fireStation) {
         log.info("Call of deleteAFireStation with  fireStation : {}", fireStation);
         try {
-           fireStation = fireStationRepository.udapteAFireStaion(fireStation);
+            fireStation = fireStationRepository.udapteAFireStaion(fireStation);
             log.info("Udapte firestation : {} ", fireStation);
 
-            return new ResponseEntity<>(fireStation,HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(fireStation, HttpStatus.ACCEPTED);
 
-        }
-        catch (Exception e) {
-            log.error("Failed to  udapte with {}",fireStation);
+        } catch (Exception e) {
+            log.error("Failed to  udapte with {}", fireStation);
 
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -72,7 +72,7 @@ public class SafetyNetAlertController {
         log.info("Call of getPerssonsWithMedicalAssociatedToAFireStation with address : {}", address);
         try {
             PersonWithMedicalRecordDtos personWithMedicalRecordDtos = safetyAlertService.getPersonsWithMedicalRecordAndFireNumberByAdress(address);
-            log.info("Response to getPerssonsWithMedicalAssociatedToAFireStation : {}", personWithMedicalRecordDtos );
+            log.info("Response to getPerssonsWithMedicalAssociatedToAFireStation : {}", personWithMedicalRecordDtos);
             return new ResponseEntity<>(personWithMedicalRecordDtos, HttpStatus.OK);
         } catch (Exception e) {
             log.error("Failed to getPerssonsWithMedicalAssociatedToAFireStation with {}", address);

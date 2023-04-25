@@ -1,9 +1,7 @@
 package com.SafetyNett.SafetyNetAlert.model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Generated;
-import org.apache.commons.lang3.builder.HashCodeExclude;
 
 import java.util.Objects;
 
@@ -22,6 +20,7 @@ public class FireStation {
         this.address = address;
         this.station = station;
     }
+
     @Override
     public String toString() {
         return "FireStations{" +

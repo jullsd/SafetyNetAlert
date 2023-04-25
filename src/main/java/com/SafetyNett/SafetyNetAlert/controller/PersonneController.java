@@ -1,18 +1,11 @@
 package com.SafetyNett.SafetyNetAlert.controller;
 
 
-import com.SafetyNett.SafetyNetAlert.dto.ChildrenDto;
-import com.SafetyNett.SafetyNetAlert.dto.ChildrenDtos;
-import com.SafetyNett.SafetyNetAlert.dto.PerssonesAtOneAdresseDto;
-import com.SafetyNett.SafetyNetAlert.model.MedicalRecord;
 import com.SafetyNett.SafetyNetAlert.model.Personne;
 import com.SafetyNett.SafetyNetAlert.repository.PersonneRepository;
-import com.SafetyNett.SafetyNetAlert.repository.PersonneRepositoryDataMemory;
 import com.SafetyNett.SafetyNetAlert.service.PersonneService;
-import com.SafetyNett.SafetyNetAlert.service.SafetyAlertService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -77,7 +70,7 @@ public class PersonneController {
 
         try {
             List<String> emailOfPersonInTheCity = personneService.getEmailOfPersonneByCity(city);
-            log.info("Response to emailAssociatedToACity : {}", emailOfPersonInTheCity );
+            log.info("Response to emailAssociatedToACity : {}", emailOfPersonInTheCity);
             return new ResponseEntity<>(emailOfPersonInTheCity, HttpStatus.OK);
         } catch (Exception e) {
             log.error("Failed to getPersonnesAtOneAdressesAssociatedtoFiresStations with {}", city);

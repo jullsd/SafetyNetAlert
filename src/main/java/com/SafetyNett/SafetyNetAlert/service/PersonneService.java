@@ -3,9 +3,7 @@ package com.SafetyNett.SafetyNetAlert.service;
 import com.SafetyNett.SafetyNetAlert.dto.PersonneDto;
 import com.SafetyNett.SafetyNetAlert.model.FireStation;
 import com.SafetyNett.SafetyNetAlert.model.Personne;
-import com.SafetyNett.SafetyNetAlert.repository.DataReaderFromAJson;
 import com.SafetyNett.SafetyNetAlert.repository.PersonneRepository;
-import com.SafetyNett.SafetyNetAlert.repository.PersonneRepositoryDataMemory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +15,8 @@ import java.util.List;
 public class PersonneService {
 
 
-    PersonneRepository personneRepository;
+    private final PersonneRepository personneRepository;
+
     @Autowired
     public PersonneService(PersonneRepository personneRepository) {
         this.personneRepository = personneRepository;
@@ -48,24 +47,27 @@ public class PersonneService {
 
         List<Personne> personnes = personneRepository.findAll();
 
-            for(Personne personne : personnes) {
-                if ((personne.getAddress()).equals(address)) {
-                    PersonneDto personneDTO = new PersonneDto(personne.getFirstName(),
-                            personne.getLastName(), personne.getAddress(), personne.getPhone(), personne.getZip(), personne.getCity());
+        for(Personne personne : personnes) {
+            if ((personne.getAddress()).equals(address)) {
+                PersonneDto personneDTO = new PersonneDto(personne.getFirstName(),
+                        personne.getLastName(), personne.getAddress(), personne.getPhone(), personne.getZip(), personne.getCity());
 
-                    personneDtos.add(personneDTO);
-                }
+                personneDtos.add(personneDTO);
             }
+        }
 
         return personneDtos;
     }
-    public Personne findByLastNameAndFirstName( String firstName,String lastName) {
+
+    public Personne findByLastNameAndFirstName(String firstName, String lastName) {
 
         List<Personne> personnes = personneRepository.findAll();
 
         for(Personne personne : personnes) {
             if ((personne.getFirstName().equals(firstName)) && (personne.getLastName().equals(lastName))) {
-                return personne; }}
+                return personne;
+            }
+        }
 
         return null;
     }
@@ -98,10 +100,7 @@ public class PersonneService {
     }
 
 
-
-
-
-    }
+}
 
 
 

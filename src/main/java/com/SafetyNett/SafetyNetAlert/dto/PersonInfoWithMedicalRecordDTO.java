@@ -1,10 +1,10 @@
 package com.SafetyNett.SafetyNetAlert.dto;
 
-import lombok.Data;
 import lombok.Generated;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Generated
 public class PersonInfoWithMedicalRecordDTO {
 
@@ -54,7 +54,7 @@ public class PersonInfoWithMedicalRecordDTO {
     }
 
     public List<String> getMedications() {
-        return  new ArrayList<>(medications);
+        return new ArrayList<>(medications);
     }
 
     public void setMedications(List<String> medications) {

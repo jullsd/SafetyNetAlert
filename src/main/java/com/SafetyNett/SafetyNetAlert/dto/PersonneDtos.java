@@ -1,8 +1,6 @@
 package com.SafetyNett.SafetyNetAlert.dto;
 
-import lombok.Data;
 import lombok.Generated;
-import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
