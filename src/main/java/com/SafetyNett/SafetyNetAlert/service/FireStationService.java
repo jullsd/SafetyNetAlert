@@ -25,6 +25,7 @@ public class FireStationService {
         for(FireStation fireStation : fireStations) {
             if (fireStation.getStation() == stationNumber) {
                 fireStationsResult.add(fireStation);
+
             }
         }
       

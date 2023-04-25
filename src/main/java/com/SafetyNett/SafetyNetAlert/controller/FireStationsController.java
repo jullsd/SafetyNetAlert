@@ -18,40 +18,55 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@ComponentScan
 @Slf4j
 public class FireStationsController {
 
    @Autowired
     FireStationRepository fireStationRepository;
-    @PostMapping("/firestation")
-    public ResponseEntity<HttpStatus> addAFireStation(@RequestBody FireStation fireStation){
 
-        fireStationRepository.addAFireStation(fireStation);
-
-        return  new ResponseEntity<>(HttpStatus.CREATED);
+    @PostMapping( "/firestation" )
+    public ResponseEntity<FireStation> addAFireStation(@RequestBody FireStation fireStation) {
+        log.info("Call of addAFireStation with  fireStation : {}", fireStation);
+        try {
+            fireStation = fireStationRepository.addAFireStation(fireStation);
+            log.info("Add firestation : {} ", fireStation);
+            return new ResponseEntity<>(fireStation, HttpStatus.CREATED);
+        } catch (Exception e) {
+            log.error("Failed to Add firestation  with {}", fireStation);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/firestation")
-    public ResponseEntity deleteAFireStation(@RequestBody FireStation fireStation){
+    public ResponseEntity<HttpStatus> deleteAFireStation(@RequestBody FireStation fireStation){
+        log.info("Call of deleteAFireStation with  fireStation : {}", fireStation);
         try {
             fireStationRepository.deleteAFireStation(fireStation);
-            log.info("fireStation removed");
-
+            log.info("Delete firestation : {} ", fireStation);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         catch (Exception e) {
-            log.error("fireStation not removed");
+            log.error("Failed to delete firestation with {}",fireStation);
 
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/firestation")
-    public ResponseEntity udapteAFireStation(@RequestBody FireStation fireStation) {
+    public ResponseEntity<FireStation> udapteAFireStation(@RequestBody FireStation fireStation) {
+        log.info("Call of deleteAFireStation with  fireStation : {}", fireStation);
+        try {
+           fireStation = fireStationRepository.udapteAFireStaion(fireStation);
+            log.info("Udapte firestation : {} ", fireStation);
 
-        fireStationRepository.udapteAFireStaion(fireStation);
+            return new ResponseEntity<>(fireStation,HttpStatus.ACCEPTED);
 
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
+        catch (Exception e) {
+            log.error("Failed to  udapte with {}",fireStation);
+
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     }
 

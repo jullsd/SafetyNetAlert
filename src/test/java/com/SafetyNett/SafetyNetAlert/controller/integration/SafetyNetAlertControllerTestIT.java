@@ -1,12 +1,6 @@
-package com.SafetyNett.SafetyNetAlert.controller;
+package com.SafetyNett.SafetyNetAlert.controller.integration;
 
-import com.SafetyNett.SafetyNetAlert.dto.*;
-import com.SafetyNett.SafetyNetAlert.service.SafetyAlertService;
-import com.SafetyNett.SafetyNetAlert.service.SafetyAlertServiceTest;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.matcher.ElementMatchers;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Slf4j
-class SafetyNetAlertControllerTest {
+class SafetyNetAlertControllerTestIT {
     @Autowired
     public MockMvc mockMvc;
 

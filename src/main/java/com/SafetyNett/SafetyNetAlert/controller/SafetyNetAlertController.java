@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@ComponentScan
 @Slf4j
 public class SafetyNetAlertController {
 
@@ -73,7 +72,7 @@ public class SafetyNetAlertController {
         log.info("Call of getPerssonsWithMedicalAssociatedToAFireStation with address : {}", address);
         try {
             PersonWithMedicalRecordDtos personWithMedicalRecordDtos = safetyAlertService.getPersonsWithMedicalRecordAndFireNumberByAdress(address);
-            log.info("Response to getPerssonsWithMedicalAssociatedToAFireStation : {}", address);
+            log.info("Response to getPerssonsWithMedicalAssociatedToAFireStation : {}", personWithMedicalRecordDtos );
             return new ResponseEntity<>(personWithMedicalRecordDtos, HttpStatus.OK);
         } catch (Exception e) {
             log.error("Failed to getPerssonsWithMedicalAssociatedToAFireStation with {}", address);

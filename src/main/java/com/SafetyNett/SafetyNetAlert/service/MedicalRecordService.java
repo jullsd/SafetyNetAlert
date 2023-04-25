@@ -30,7 +30,9 @@ public class MedicalRecordService {
             }
 
         }
+
         return null;
+
 
     }
     public List<String> getAllergiesByLastNameAndFirstName(String lastName, String firstName) {
