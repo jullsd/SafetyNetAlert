@@ -1,6 +1,7 @@
 package com.SafetyNett.SafetyNetAlert.controller.integration;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ class SafetyNetAlertControllerTestIT {
     @Test
     void getChildrenListAtOneAdress() throws Exception {
 
-        String result = "{\"childrenDtos\":[{\"firstName\":\"Tenley\",\"lastName\":\"Boyd\",\"birthDate\":\"02/18/2012\"},{\"firstName\":\"Roger\",\"lastName\":\"Boyd\",\"birthDate\":\"09/06/2017\"}],\"perssonesAssociatedToAChild\":[{\"firstName\":\"John\",\"lastName\":\"Boyd\",\"address\":\"1509 Culver St\",\"phone\":\"841-874-6512\",\"zip\":\"97451\",\"city\":\"Culver\"},{\"firstName\":\"Jacob\",\"lastName\":\"Boyd\",\"address\":\"1509 Culver St\",\"phone\":\"841-874-6513\",\"zip\":\"97451\",\"city\":\"Culver\"},{\"firstName\":\"Felicia\",\"lastName\":\"Boyd\",\"address\":\"1509 Culver St\",\"phone\":\"841-874-6544\",\"zip\":\"97451\",\"city\":\"Culver\"}]}";
+        String result ="{\"childrenDtos\":[{\"firstName\":\"Tenley\",\"lastName\":\"Boyd\",\"age\":11},{\"firstName\":\"Roger\",\"lastName\":\"Boyd\",\"age\":5}],\"perssonesAssociatedToAChild\":[{\"firstName\":\"John\",\"lastName\":\"Boyd\",\"address\":\"1509 Culver St\",\"phone\":\"841-874-6512\",\"zip\":\"97451\",\"city\":\"Culver\"},{\"firstName\":\"Jacob\",\"lastName\":\"Boyd\",\"address\":\"1509 Culver St\",\"phone\":\"841-874-6513\",\"zip\":\"97451\",\"city\":\"Culver\"},{\"firstName\":\"Felicia\",\"lastName\":\"Boyd\",\"address\":\"1509 Culver St\",\"phone\":\"841-874-6544\",\"zip\":\"97451\",\"city\":\"Culver\"}]}";
 
       MvcResult mvcResult =  mockMvc.perform( MockMvcRequestBuilders
                         .get("/childAlert")
@@ -101,7 +102,7 @@ class SafetyNetAlertControllerTestIT {
     @Test
     void getPersonInfoWithMedicalRecordByFirstNameAndLastName()  throws Exception{
 
-        String result ="{\"lastName\":\"Boyd\",\"address\":\"1509 Culver St\",\"age\":39,\"email\":\"jaboyd@email.com\",\"medications\":[\"aznol:350mg\",\"hydrapermazol:100mg\"],\"allergies\":[\"nillacilan\"]}";
+        String result ="[{\"lastName\":\"Boyd\",\"firstName\":\"John\",\"address\":\"1509 Culver St\",\"age\":39,\"email\":\"jaboyd@email.com\",\"medications\":[\"aznol:350mg\",\"hydrapermazol:100mg\"],\"allergies\":[\"nillacilan\"]}]";
 
                 MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
 
@@ -110,7 +111,7 @@ class SafetyNetAlertControllerTestIT {
                                 .queryParam("lastName","Boyd")
         .contentType(MediaType.APPLICATION_JSON))
          .andExpect(status().isOk())
-                        .andExpect(jsonPath("$.age").value(39))
+                        .andExpect(jsonPath("$.[0].age").value(39))
                 .andReturn();
 
         assertThat(result).isEqualTo(mvcResult.getResponse().getContentAsString());

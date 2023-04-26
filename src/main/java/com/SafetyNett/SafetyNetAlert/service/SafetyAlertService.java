@@ -125,17 +125,20 @@ public class SafetyAlertService {
 
     }
 
-    public PersonInfoWithMedicalRecordDTO getPersonInfoWithMedicalRecordByFirstNameAndLastName(String firstName, String lastName) {
+    public List<PersonInfoWithMedicalRecordDTO> getPersonInfoWithMedicalRecordByFirstNameAndLastName(String firstName, String lastName) {
 
-        Personne personne = personneService.findByLastNameAndFirstName(firstName, lastName);
+        List<PersonInfoWithMedicalRecordDTO> personInfosWithMedicalRecordDTO = new ArrayList<>();
         String birthday = medicalRecordService.getBirthdayByLastNameAndFirstName(lastName, firstName);
         List<String> allergies = medicalRecordService.getAllergiesByLastNameAndFirstName(lastName, firstName);
         List<String> medications = medicalRecordService.getMedicationsByLastNameAndFirstName(lastName, firstName);
+        List<Personne> allPersonWithLastNameAndFirstName = personneService.findAllPersoneByLastNameAndFirstName(firstName, lastName);
 
-        PersonInfoWithMedicalRecordDTO personInfoWithMedicalRecordDTO = new PersonInfoWithMedicalRecordDTO(personne.getLastName(),
-                personne.getAddress(), ageCalulatorService.ageCalculation(birthday), personne.getEmail(), medications, allergies);
-
-        return personInfoWithMedicalRecordDTO;
+        for(Personne personne : allPersonWithLastNameAndFirstName) {
+            PersonInfoWithMedicalRecordDTO personInfoWithMedicalRecordDTO = new PersonInfoWithMedicalRecordDTO(personne.getLastName(), personne.getFirstName(),
+                    personne.getAddress(), ageCalulatorService.ageCalculation(birthday), personne.getEmail(), medications, allergies);
+            personInfosWithMedicalRecordDTO.add(personInfoWithMedicalRecordDTO);
+        }
+        return personInfosWithMedicalRecordDTO;
 
 
     }
@@ -162,7 +165,7 @@ public class SafetyAlertService {
             String birthday = medicalRecordService.getBirthdayByLastNameAndFirstName(personneDto.getLastName(), personneDto.getFirstName());
             if (ageCalulatorService.isChild(birthday)) {
                 ChildrenDto childrenDTO = new ChildrenDto(personneDto.getFirstName(), personneDto.getLastName(),
-                        birthday);
+                        ageCalulatorService.ageCalculation(birthday));
 
                 childrenAtOneAdress.add(childrenDTO);
             }

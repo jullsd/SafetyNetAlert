@@ -4,7 +4,6 @@ package com.SafetyNett.SafetyNetAlert.Repository;
 import com.SafetyNett.SafetyNetAlert.model.Personne;
 import com.SafetyNett.SafetyNetAlert.repository.DataReaderFromAJson;
 import com.SafetyNett.SafetyNetAlert.repository.PersonneRepositoryDataMemory;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -21,7 +20,7 @@ public class PersonneRepositoryTest {
 
     @Mock
     private static DataReaderFromAJson jsonReaderRepository;
-    private List<Personne> personneInData = new ArrayList<>();
+
 
     private  Personne PERSONNE = new Personne("Sayd","Julien","11","Buc","7832","0632323525","julien.sayd@gmail.com");
 
@@ -33,19 +32,20 @@ public class PersonneRepositoryTest {
 
         personneRepository.addNewPersonne(PERSONNE);
 
-        List personnes = personneRepository.findAll();
+        List<Personne> personnes = personneRepository.findAll();
 
         assertThat(personnes).contains(PERSONNE);
     }
-@Disabled
+
     @Test
     public void DeleteAPersonne() {
 
         PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(jsonReaderRepository);
         personneRepository.addNewPersonne(PERSONNE);
+        personneRepository.deleteAPersonne(PERSONNE);
 
 
-        List personnesInData = personneRepository.findAll();
+        List<Personne> personnesInData = personneRepository.findAll();
 
         assertThat(personnesInData).doesNotContain(PERSONNE);
     }

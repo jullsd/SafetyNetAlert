@@ -2,6 +2,7 @@ package com.SafetyNett.SafetyNetAlert.Repository;
 
 
 import com.SafetyNett.SafetyNetAlert.model.FireStation;
+import com.SafetyNett.SafetyNetAlert.model.Personne;
 import com.SafetyNett.SafetyNetAlert.repository.DataReaderFromAJson;
 import com.SafetyNett.SafetyNetAlert.repository.FireStationRepositoryDataMemory;
 import org.junit.jupiter.api.Test;
@@ -20,8 +21,6 @@ public class FireStationRepositoryTest {
     @Mock
     private static DataReaderFromAJson dataReaderFromAJson;
 
-    private List<FireStation> fireStationsInData = new ArrayList<>();
-
     private FireStation fireStation = new FireStation("adress",2);
 
     @Test
@@ -32,7 +31,7 @@ public class FireStationRepositoryTest {
 
        fireStationRepository.addAFireStation(fireStation);
 
-        List fireStations = fireStationRepository.findAll();
+        List<FireStation> fireStations = fireStationRepository.findAll();
 
         assertThat(fireStations).contains(fireStation);
     }
@@ -42,9 +41,12 @@ public class FireStationRepositoryTest {
 
         FireStationRepositoryDataMemory fireStationRepository= new FireStationRepositoryDataMemory(dataReaderFromAJson);
 
+        fireStationRepository.addAFireStation(fireStation);
+        fireStationRepository.deleteAFireStation(fireStation);
 
-        fireStationsInData.add(0,fireStation);
+        List<FireStation> fireStations = fireStationRepository.findAll();
 
+        assertThat(fireStations).doesNotContain(fireStation);
 
 
 

@@ -12,13 +12,12 @@ import java.util.List;
 @Service
 public class FireStationService {
 
-    DataReaderFromAJson dataReaderFromAJson;
-
     FireStationRepository fireStationsRepository;
 
 
     @Autowired
     public FireStationService(FireStationRepository fireStationsRepository) {
+
         this.fireStationsRepository = fireStationsRepository;
     }
 

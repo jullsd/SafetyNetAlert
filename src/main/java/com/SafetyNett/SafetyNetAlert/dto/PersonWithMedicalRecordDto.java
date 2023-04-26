@@ -10,6 +10,7 @@ public class PersonWithMedicalRecordDto {
 
     private String lastName;
 
+
     private String phone;
 
     private int age;

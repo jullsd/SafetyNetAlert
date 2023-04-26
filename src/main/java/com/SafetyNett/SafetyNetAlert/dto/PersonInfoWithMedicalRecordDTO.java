@@ -11,19 +11,33 @@ public class PersonInfoWithMedicalRecordDTO {
 
     private String lastName;
 
-    private String address;
 
-    public String getLastName() {
-        return lastName;
-    }
+    private String firstName;
+
+
+    private String address;
 
     private int age;
 
     private String email;
 
+
+
     private List<String> medications;
 
     private List<String> allergies;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -70,13 +84,13 @@ public class PersonInfoWithMedicalRecordDTO {
     }
 
 
-    public PersonInfoWithMedicalRecordDTO(String lastName, String address, int age, String email, List<String> medications, List<String> allergies) {
+    public PersonInfoWithMedicalRecordDTO(String lastName, String firstName, String address, int age, String email, List<String> medications, List<String> allergies) {
         this.lastName = lastName;
+        this.firstName = firstName;
         this.address = address;
         this.age = age;
         this.email = email;
         this.medications = new ArrayList<>(medications);
         this.allergies = new ArrayList<>(allergies);
     }
-
 }

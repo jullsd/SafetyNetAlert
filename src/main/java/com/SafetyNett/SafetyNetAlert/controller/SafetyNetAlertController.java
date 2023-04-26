@@ -98,12 +98,12 @@ public class SafetyNetAlertController {
     }
 
     @GetMapping( "/personInfo" )
-    public ResponseEntity<PersonInfoWithMedicalRecordDTO> getPersonInfoWithMedicalRecordByFirstNameAndLastName(@RequestParam final String firstName, String lastName) {
+    public ResponseEntity<List<PersonInfoWithMedicalRecordDTO>> getPersonInfoWithMedicalRecordByFirstNameAndLastName(@RequestParam final String firstName, String lastName) {
         log.info("Call of getPersonInfoWithMedicalRecordByFirstNameAndLastName with address : {} & {}", firstName, lastName);
 
 
         try {
-            PersonInfoWithMedicalRecordDTO personInfoWithMedicalRecordDTO = safetyAlertService.getPersonInfoWithMedicalRecordByFirstNameAndLastName(firstName, lastName);
+            List<PersonInfoWithMedicalRecordDTO>  personInfoWithMedicalRecordDTO = safetyAlertService.getPersonInfoWithMedicalRecordByFirstNameAndLastName(firstName, lastName);
             log.info("Response to getPersonInfoWithMedicalRecordByFirstNameAndLastName: {}", personInfoWithMedicalRecordDTO);
             return new ResponseEntity<>(personInfoWithMedicalRecordDTO, HttpStatus.OK);
         } catch (Exception e) {

@@ -14,8 +14,6 @@ import java.util.List;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.when;
 
 @ExtendWith( MockitoExtension.class )
@@ -49,6 +47,7 @@ public class SafetyAlertServiceTest {
 
     public static final String ADDRESS_OF_THE_PERSONNE = "2 rue de la rue";
 
+    public static final String ADDRESS_OF_THE_OTHER_PERSONNE = "2 rue de la rue de l'autre";
     public static final String OTHER_ADRESS = "18 rue de la rue";
     public static final String CITY = "BUC";
 
@@ -74,28 +73,13 @@ public class SafetyAlertServiceTest {
         when(fireStationService.getFireStationsByNumber(FIRE_STATION_NUMBER_1)).thenReturn(fireStations);
         when(personneService.getPersonnesByFireStations(fireStations)).thenReturn(personneDtos);
 
-        assertThat(safetyAlertService.getPersonnesByFireStationNumber(FIRE_STATION_NUMBER_1)).isEqualTo(personneDtos);
+        List<PersonneDto>  personneDtosresults = safetyAlertService.getPersonnesByFireStationNumber(FIRE_STATION_NUMBER_1);
 
-
-    }
-
-    @Test
-    @Disabled
-    void getPersonnesByFireStation() {
-
-        SafetyAlertService safetyAlertService = new SafetyAlertService(fireStationService, personneService, medicalRecordService,
-                ageCalulatorService);
-
-        List<PersonneDto> personnes = safetyAlertService.getPersonnesByFireStationNumber(FIRE_STATION_NUMBER_1);
-        int adultCount = safetyAlertService.getAdultCountByPersonnes(personnes);
-        int childrenCount = safetyAlertService.getChildrenCountByPersonnes(personnes);
-
-        PersonneDtos resultat = new PersonneDtos(personnes, adultCount, childrenCount);
-
-        assertThat(safetyAlertService.getPersonnesByFireStation(FIRE_STATION_NUMBER_1)).isEqualTo(resultat);
-
+        assertThat(personneDtosresults.get(0).getFirstName()).isEqualTo(FIRST_NAME);
+        assertThat(personneDtosresults.get(0).getZip()).isEqualTo(ZIP);
 
     }
+
 
     @Test
     void getPhoneNumbersByFireStation() {
@@ -130,7 +114,7 @@ public class SafetyAlertServiceTest {
 
         PersonneDto personneDto = new PersonneDto(FIRST_NAME, LAST_NAME, ADDRESS_OF_THE_PERSONNE, PHONE, ZIP, CITY);
         ChildrenDto childrenDTO = new ChildrenDto(personneDto.getFirstName(), personneDto.getLastName(),
-                BIRTHDAY);
+                ageCalulatorService.ageCalculation(BIRTHDAY));
 
         personneDtos.add(personneDto);
         childrenAtOneAdress.add(childrenDTO);
@@ -154,7 +138,7 @@ public class SafetyAlertServiceTest {
 
         PersonneDto personneDto = new PersonneDto(FIRST_NAME, LAST_NAME, ADDRESS_OF_THE_PERSONNE, PHONE, ZIP, CITY);
         ChildrenDto childrenDTO = new ChildrenDto(personneDto.getFirstName(), personneDto.getLastName(),
-                BIRTHDAY);
+               ageCalulatorService.ageCalculation(BIRTHDAY));
 
         personneDtos.add(personneDto);
         childrenAtOneAdress.add(childrenDTO);
@@ -199,20 +183,7 @@ public class SafetyAlertServiceTest {
         assertThat(safetyAlertService.getPersonnesAssociatedToAChildByAdress(OTHER_ADRESS)).isNotEqualTo(personneDtos);
     }
 
-    @Test
-    @Disabled
-    void getChildrenAndPersonnesAssociatedToAChildByAdress()  throws  Exception {
-        SafetyAlertService safetyAlertService = new SafetyAlertService(fireStationService, personneService, medicalRecordService,
-                ageCalulatorService);
 
-        ChildrenDtos childrenDtos = new ChildrenDtos(safetyAlertService.getChildrensbyAdress(ADDRESS_OF_THE_PERSONNE),
-                safetyAlertService.getPersonnesAssociatedToAChildByAdress(ADDRESS_OF_THE_PERSONNE));
-
-
-
-        assertThat(safetyAlertService.getChildrenAndPersonnesAssociatedToAChildByAdress(ADDRESS_OF_THE_PERSONNE)).isEqualTo(childrenDtos);
-
-    }
 
     @Test
     void getAdultCountPlusByPersonnes() {
@@ -276,28 +247,23 @@ public class SafetyAlertServiceTest {
 
         assertThat(safetyAlertService.getChildrenCountByPersonnes(personneDtos)).isEqualTo(0);
     }
-
     @Test
-    @Disabled
     void getPersonWithMedicalRecordByAdress() {
 
         SafetyAlertService safetyAlertService = new SafetyAlertService(fireStationService, personneService, medicalRecordService,
                 ageCalulatorService);
 
         List<PersonneDto> personnes =  new ArrayList<>();
-        List<PersonWithMedicalRecordDto> personsWithMedicalRecordDto = new ArrayList<>();
         List<String> medications = new ArrayList<>();
         List<String> allergies = new ArrayList<>();
 
         medications.add(PARACETAMOL);
         allergies.add(CACAHUETE);
 
-        PersonWithMedicalRecordDto personWithMedicalRecordDto = new PersonWithMedicalRecordDto(LAST_NAME,PHONE,AGE_OF_A_PERSON
-                ,medications,allergies);
 
         PersonneDto personneDto = new PersonneDto(FIRST_NAME, LAST_NAME, ADDRESS_OF_THE_PERSONNE, PHONE, ZIP, CITY);
         personnes.add(personneDto);
-        personsWithMedicalRecordDto.add(personWithMedicalRecordDto);
+
 
         when(medicalRecordService.getBirthdayByLastNameAndFirstName(personneDto.getLastName(),personneDto.getFirstName())).thenReturn(BIRTHDAY);
         when(medicalRecordService.getAllergiesByLastNameAndFirstName(personneDto.getLastName(),personneDto.getFirstName())).thenReturn(allergies);
@@ -306,84 +272,92 @@ public class SafetyAlertServiceTest {
         when(ageCalulatorService.ageCalculation(BIRTHDAY)).thenReturn(AGE_OF_A_PERSON);
         when(personneService.getPersonnesByAdress(ADDRESS_OF_THE_PERSONNE)).thenReturn(personnes);
 
+        List<PersonWithMedicalRecordDto> personsWithMedicalRecordDtoresults =
+                safetyAlertService.getPersonWithMedicalRecordByAdress(ADDRESS_OF_THE_PERSONNE);
 
-        assertThat(safetyAlertService.getPersonWithMedicalRecordByAdress(ADDRESS_OF_THE_PERSONNE)).contains(personWithMedicalRecordDto);
-
-
-    }
-
-    @Test
-    @Disabled
-    void getPersonsWithMedicalRecordAndFireNumberByAdress() {
-
-
-        SafetyAlertService safetyAlertService = new SafetyAlertService(fireStationService, personneService, medicalRecordService,
-                ageCalulatorService);
-
-
-
-        PersonWithMedicalRecordDtos personWithMedicalRecordDtos = new  PersonWithMedicalRecordDtos(
-                fireStationService.getFireStationsNumberByAdress(ADDRESS_OF_THE_PERSONNE),
-                safetyAlertService.getPersonWithMedicalRecordByAdress(ADDRESS_OF_THE_PERSONNE));
-
-
-
-        assertThat(safetyAlertService.getPersonsWithMedicalRecordAndFireNumberByAdress(ADDRESS_OF_THE_PERSONNE)).isEqualTo(personWithMedicalRecordDtos);
-
-
-
+        assertThat(personsWithMedicalRecordDtoresults.get(0).getMedications()).isEqualTo(medications);
 
 
     }
 
 
     @Test
-    @Disabled
     void getPersonInfoWithMedicalRecordByFirstNameAndLastName() {
 
         SafetyAlertService safetyAlertService = new SafetyAlertService(fireStationService, personneService, medicalRecordService,
                 ageCalulatorService);
+        List<Personne> personnes = new ArrayList<>();
 
         Personne personne = new Personne(FIRST_NAME,LAST_NAME,ADDRESS_OF_THE_PERSONNE,CITY,ZIP,PHONE,EMAIL);
-
+        personnes.add(personne);
         List<String> medications = new ArrayList<>();
         List<String> allergies = new ArrayList<>();
         medications.add(PARACETAMOL);
         allergies.add(CACAHUETE);
 
-        when(personneService.findByLastNameAndFirstName(FIRST_NAME,LAST_NAME)).thenReturn(personne);
+        when(personneService.findAllPersoneByLastNameAndFirstName(FIRST_NAME,LAST_NAME)).thenReturn(personnes);
         when(medicalRecordService.getAllergiesByLastNameAndFirstName(LAST_NAME,FIRST_NAME)).thenReturn(allergies);
         when(medicalRecordService.getBirthdayByLastNameAndFirstName(LAST_NAME,FIRST_NAME)).thenReturn(BIRTHDAY);
         when(medicalRecordService.getMedicationsByLastNameAndFirstName(LAST_NAME,FIRST_NAME)).thenReturn(medications);
 
-        PersonInfoWithMedicalRecordDTO personInfoWithMedicalRecordDTO = new PersonInfoWithMedicalRecordDTO(personne.getLastName(), personne.getAddress()
-                ,ageCalulatorService.ageCalculation(BIRTHDAY),personne.getEmail(),medications,allergies);
+        List<PersonInfoWithMedicalRecordDTO> personInfoWithMedicalRecordDTO = safetyAlertService.getPersonInfoWithMedicalRecordByFirstNameAndLastName(FIRST_NAME,LAST_NAME);
 
-        assertThat(safetyAlertService.getPersonInfoWithMedicalRecordByFirstNameAndLastName(FIRST_NAME,LAST_NAME)).isEqualTo(personInfoWithMedicalRecordDTO);
-
+        assertThat(personInfoWithMedicalRecordDTO.get(0).getMedications()).isEqualTo(medications);
+        assertThat(personInfoWithMedicalRecordDTO.get(0).getAllergies()).isEqualTo(allergies);
     }
 
     @Test
-    @Disabled
+    void getPersonInfoWith2PersoneWithSameNameMedicalRecordByFirstNameAndLastName() {
+
+        SafetyAlertService safetyAlertService = new SafetyAlertService(fireStationService, personneService, medicalRecordService,
+                ageCalulatorService);
+        List<Personne> personnes = new ArrayList<>();
+
+        Personne personne = new Personne(FIRST_NAME,LAST_NAME,ADDRESS_OF_THE_PERSONNE,CITY,ZIP,PHONE,EMAIL);
+        Personne personne2 = new Personne(FIRST_NAME,LAST_NAME,ADDRESS_OF_THE_OTHER_PERSONNE,CITY,ZIP,PHONE,EMAIL);
+        personnes.add(personne);
+        personnes.add(personne2);
+        List<String> medications = new ArrayList<>();
+        List<String> allergies = new ArrayList<>();
+        medications.add(PARACETAMOL);
+        allergies.add(CACAHUETE);
+
+        when(personneService.findAllPersoneByLastNameAndFirstName(FIRST_NAME,LAST_NAME)).thenReturn(personnes);
+        when(medicalRecordService.getAllergiesByLastNameAndFirstName(LAST_NAME,FIRST_NAME)).thenReturn(allergies);
+        when(medicalRecordService.getBirthdayByLastNameAndFirstName(LAST_NAME,FIRST_NAME)).thenReturn(BIRTHDAY);
+        when(medicalRecordService.getMedicationsByLastNameAndFirstName(LAST_NAME,FIRST_NAME)).thenReturn(medications);
+
+        List<PersonInfoWithMedicalRecordDTO> personInfoWithMedicalRecordDTO = safetyAlertService.getPersonInfoWithMedicalRecordByFirstNameAndLastName(FIRST_NAME,LAST_NAME);
+
+        assertThat(personInfoWithMedicalRecordDTO.get(0).getAddress()).isEqualTo(ADDRESS_OF_THE_PERSONNE);
+        assertThat(personInfoWithMedicalRecordDTO.get(1).getAddress()).isEqualTo(ADDRESS_OF_THE_OTHER_PERSONNE);
+    }
+
+    @Test
     void getPersonsAtOneAddressWithMedicalRecordByFireStationsNumbers() {
 
         SafetyAlertService safetyAlertService = new SafetyAlertService(fireStationService, personneService, medicalRecordService,
                 ageCalulatorService);
 
         List<PerssonesAtOneAdresseDto> personsAtOneAdresse = new ArrayList<>();
+        List<PersonWithMedicalRecordDto> personWithMedicalRecordDtos = new ArrayList<>();
+
         List<String> addresses = new ArrayList<>();
         List<Integer> stations = new ArrayList<>();
         stations.add(FIRE_STATION_NUMBER_1);
         addresses.add(ADDRESS_OF_THE_PERSONNE);
 
         when(fireStationService.getAllAdressAssociatedToFireStations(stations)).thenReturn(addresses);
+        when(safetyAlertService.getPersonWithMedicalRecordByAdress(ADDRESS_OF_THE_PERSONNE)).thenReturn(personWithMedicalRecordDtos);
 
         PerssonesAtOneAdresseDto perssonesAtOneAdresseDto = new PerssonesAtOneAdresseDto(ADDRESS_OF_THE_PERSONNE,
                 safetyAlertService.getPersonWithMedicalRecordByAdress(ADDRESS_OF_THE_PERSONNE));
 
-        personsAtOneAdresse.add(perssonesAtOneAdresseDto);
 
-        assertThat(safetyAlertService.getPersonsAtOneAddressWithMedicalRecordByFireStationsNumbers(stations).contains(perssonesAtOneAdresseDto));
+
+        personsAtOneAdresse = safetyAlertService.getPersonsAtOneAddressWithMedicalRecordByFireStationsNumbers(stations);
+
+        assertThat(personsAtOneAdresse.get(0).getPersonsWithMedicalRecordDtos()).isEqualTo(personWithMedicalRecordDtos);
 
     }
 }

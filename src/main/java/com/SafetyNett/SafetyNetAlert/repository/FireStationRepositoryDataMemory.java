@@ -12,14 +12,11 @@ import java.util.List;
 @Slf4j
 public class FireStationRepositoryDataMemory implements FireStationRepository {
 
-    @Autowired
-    DataReaderFromAJson dataReaderFromAJson;
 
     private List<FireStation> fireStations = new ArrayList<>();
 
     @Autowired
     public FireStationRepositoryDataMemory(DataReaderFromAJson dataReaderFromAJson) {
-        this.dataReaderFromAJson = dataReaderFromAJson;
         fireStations.addAll(dataReaderFromAJson.fireStations());
 
     }
@@ -27,9 +24,11 @@ public class FireStationRepositoryDataMemory implements FireStationRepository {
     @Override
     public List<FireStation> findAll() {
 
-        log.debug("asas");
+
 
         List<FireStation> fireStationsclone = new ArrayList<>(fireStations);
+
+        log.debug("Response to findAll(): {}" , fireStationsclone);
 
         return fireStationsclone;
 
@@ -40,17 +39,23 @@ public class FireStationRepositoryDataMemory implements FireStationRepository {
 
         fireStations.add(fireStation);
 
+
         return fireStation;
+
     }
 
     @Override
     public FireStation findByAdresse(String adress) {
+        log.debug("Call findByAdresse with {}",adress);
         for(FireStation fireStation : fireStations) {
             if ((fireStation.getAddress()).equals(adress)) {
+                log.debug("Response to findByAdresse  {}",fireStation);
                 return fireStation;
             }
+            log.debug("Failed to findByAdresse with {}",adress);
         }
         return null;
+
     }
 
     @Override

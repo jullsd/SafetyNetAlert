@@ -72,6 +72,21 @@ public class PersonneService {
         return null;
     }
 
+    public List<Personne> findAllPersoneByLastNameAndFirstName(String firstName, String lastName) {
+
+        List<Personne> personnes = personneRepository.findAll();
+        List<Personne> allpersonnesWithFirstNameAndLastName = new ArrayList<>();
+
+        for(Personne personne : personnes) {
+            if ((personne.getFirstName().equals(firstName)) && (personne.getLastName().equals(lastName))) {
+                allpersonnesWithFirstNameAndLastName.add(personne);
+
+
+            }
+        }
+        return allpersonnesWithFirstNameAndLastName;
+    }
+
     public List<String> getPhoneNumbersByAdress(List<String> adresses) {
 
         List<String> phoneNumbers = new ArrayList<>();

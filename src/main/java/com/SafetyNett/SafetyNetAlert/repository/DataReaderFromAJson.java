@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@Slf4j
 public class DataReaderFromAJson {
 
 
@@ -30,7 +32,9 @@ public class DataReaderFromAJson {
             personnes = reader.readValue(node.get("persons"));
 
         } catch (IOException ex) {
+            log.debug("Failed to Read json", ex);
             throw new RuntimeException(ex);
+
         }
 
         return personnes;
@@ -49,6 +53,7 @@ public class DataReaderFromAJson {
             medicalRecords = reader.readValue(node.get("medicalrecords"));
 
         } catch (IOException ex) {
+            log.debug("Failed to Read json", ex);
             throw new RuntimeException(ex);
         }
 
@@ -67,6 +72,7 @@ public class DataReaderFromAJson {
             fireStations = reader.readValue(node.get("firestations"));
 
         } catch (IOException ex) {
+            log.debug("Failed to Read json", ex);
             throw new RuntimeException(ex);
         }
 

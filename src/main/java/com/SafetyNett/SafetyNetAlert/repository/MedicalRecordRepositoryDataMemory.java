@@ -1,6 +1,7 @@
 package com.SafetyNett.SafetyNetAlert.repository;
 
 import com.SafetyNett.SafetyNetAlert.model.MedicalRecord;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -8,16 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@Slf4j
 public class MedicalRecordRepositoryDataMemory implements MedicalRecordRepository {
-
-    @Autowired
-    DataReaderFromAJson dataReaderFromAJson;
 
     private List<MedicalRecord> medicalRecords = new ArrayList<>();
 
     @Autowired
     public MedicalRecordRepositoryDataMemory(DataReaderFromAJson dataReaderFromAJson) {
-        this.dataReaderFromAJson = dataReaderFromAJson;
         medicalRecords.addAll(dataReaderFromAJson.medicalRecords());
     }
 
@@ -25,6 +23,7 @@ public class MedicalRecordRepositoryDataMemory implements MedicalRecordRepositor
     public List<MedicalRecord> findAll() {
 
         List<MedicalRecord> medicalRecordsClone = new ArrayList<>(medicalRecords);
+        log.debug("Response to findAll(): {}" , medicalRecords);
         return medicalRecordsClone;
     }
 
@@ -36,10 +35,13 @@ public class MedicalRecordRepositoryDataMemory implements MedicalRecordRepositor
 
     @Override
     public MedicalRecord findByLastNameAndFirstName(String lastName, String firstName) {
+        log.debug("Call findByLastNameAndFirstName with {}&{}",lastName,firstName);
         for(MedicalRecord medicalRecord : medicalRecords) {
             if ((medicalRecord.getFirstName().equals(firstName)) && (medicalRecord.getLastName().equals(lastName))) {
+                log.debug("Respone findByLastNameAndFirstName with {} {} : {}", lastName,firstName,medicalRecord);
                 return medicalRecord;
             }
+            log.debug("Failed to findByLastNameAndFirstName with {}&{}",lastName,firstName);
         }
         return null;
     }

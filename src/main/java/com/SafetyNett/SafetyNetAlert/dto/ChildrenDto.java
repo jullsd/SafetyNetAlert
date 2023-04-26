@@ -13,12 +13,11 @@ public class ChildrenDto {
 
     private String lastName;
 
-    private String birthDate;
+    private int age;
 
-    public ChildrenDto(String firstName, String lastName, String birthDate) {
+    public ChildrenDto(String firstName, String lastName, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthDate = birthDate;
+        this.age = age;
     }
-
 }
