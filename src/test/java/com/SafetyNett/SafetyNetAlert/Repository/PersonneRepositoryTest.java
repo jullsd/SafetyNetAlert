@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class PersonneRepositoryTest {
@@ -70,18 +71,15 @@ public class PersonneRepositoryTest {
         PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(jsonReaderRepository);
         personneRepository.addNewPersonne(PERSONNE);
 
-        Personne personne = personneRepository.findByLastNameAndFirstName("aa","Sayd");
-
-        assertThat(personne).isNull();
+        assertThrows(IllegalArgumentException.class, () ->personneRepository.findByLastNameAndFirstName("aa","Sayd")) ;
     }
     @Test
     public void DontfindAPersonneByLastName() {
         PersonneRepositoryDataMemory personneRepository = new PersonneRepositoryDataMemory(jsonReaderRepository);
         personneRepository.addNewPersonne(PERSONNE);
 
-        Personne personne = personneRepository.findByLastNameAndFirstName("Julien","aa");
 
-        assertThat(personne).isNull();
+        assertThrows(IllegalArgumentException.class, () ->personneRepository.findByLastNameAndFirstName("Julien","aa")) ;
     }
     @Test
     public void udapteInformationOfAPersonneTest() {
@@ -93,7 +91,7 @@ public class PersonneRepositoryTest {
 
         personneRepository.udapteInformationOfaPersonne(PERSONNE);
 
-       assertThat(PERSONNE.getPhone()).isEqualTo("2222");
+         assertThat(PERSONNE.getPhone()).isEqualTo("2222");
         assertThat(PERSONNE.getCity()).isEqualTo("asa");
 
     }

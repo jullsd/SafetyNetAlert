@@ -39,6 +39,7 @@ public class FireStationsControllerTest {
 
     @Test
     public void testDeleteFireStation() throws Exception {
+
         mockMvc.perform(MockMvcRequestBuilders.delete("/firestation")
                         .content(asJsonString(FIRESTATION))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -48,7 +49,6 @@ public class FireStationsControllerTest {
 
     @Test
     void addAFireStation() throws Exception {
-
         when(fireStationRepository.addAFireStation(FIRESTATION)).thenReturn(FIRESTATION);
 
         mockMvc.perform(MockMvcRequestBuilders

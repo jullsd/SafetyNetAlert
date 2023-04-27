@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 @ExtendWith( MockitoExtension.class)
 public class MedicalRecordRepositoryTest {
@@ -62,9 +63,7 @@ public class MedicalRecordRepositoryTest {
 
 
 
-        MedicalRecord medicalRecord = medicalRecordRepository.findByLastNameAndFirstName("Jul","Sayd");
-
-        assertThat(medicalRecord).isNull();
+        assertThrows(IllegalArgumentException.class, () ->medicalRecordRepository.findByLastNameAndFirstName("Jul","Sayd"));
 
     }
     @Test
@@ -76,10 +75,8 @@ public class MedicalRecordRepositoryTest {
 
 
 
-        MedicalRecord medicalRecord = medicalRecordRepository.findByLastNameAndFirstName("Julien","Sayde");
 
-        assertThat(medicalRecord).isNull();
-
+        assertThrows(IllegalArgumentException.class, () ->medicalRecordRepository.findByLastNameAndFirstName("Julien","Sayde"));
     }
 
     @Test

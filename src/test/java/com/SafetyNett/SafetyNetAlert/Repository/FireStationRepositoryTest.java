@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 @ExtendWith( MockitoExtension.class)
 public class FireStationRepositoryTest {
@@ -73,9 +74,8 @@ public class FireStationRepositoryTest {
 
         fireStationRepository.addAFireStation(fireStation);
 
-        FireStation fireStationA = fireStationRepository.findByAdresse("adressNull");
 
-        assertThat(fireStationA).isNull();
+        assertThrows(IllegalArgumentException.class, () ->fireStationRepository.findByAdresse("adressNull")) ;
 
     }
     @Test

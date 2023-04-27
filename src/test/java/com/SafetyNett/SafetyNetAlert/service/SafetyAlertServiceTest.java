@@ -360,4 +360,16 @@ public class SafetyAlertServiceTest {
         assertThat(personsAtOneAdresse.get(0).getPersonsWithMedicalRecordDtos()).isEqualTo(personWithMedicalRecordDtos);
 
     }
+
+    @Test
+    void dontGetChildrenAndPersonnesAssociatedToAChildByAdress() {
+        List<ChildrenDto> childrenAtOneAdress = new ArrayList<>();
+
+        SafetyAlertService safetyAlertService = new SafetyAlertService(fireStationService, personneService, medicalRecordService,
+                ageCalulatorService);
+        when(safetyAlertService.getChildrensbyAdress(ADDRESS_OF_THE_PERSONNE)).thenReturn(childrenAtOneAdress);
+
+        assertThat(safetyAlertService.getChildrenAndPersonnesAssociatedToAChildByAdress(ADDRESS_OF_THE_PERSONNE)).isNull();
+
+    }
 }

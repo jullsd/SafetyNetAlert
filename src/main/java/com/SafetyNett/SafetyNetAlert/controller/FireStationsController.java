@@ -61,7 +61,7 @@ public class FireStationsController {
             return new ResponseEntity<>(fireStation, HttpStatus.ACCEPTED);
 
         } catch (Exception e) {
-            log.error("Failed to  udapte with {}", fireStation);
+            log.error("Failed to  udapte a firestation with {}", fireStation);
 
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

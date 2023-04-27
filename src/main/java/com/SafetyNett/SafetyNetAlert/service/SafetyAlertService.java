@@ -3,6 +3,7 @@ package com.SafetyNett.SafetyNetAlert.service;
 import com.SafetyNett.SafetyNetAlert.dto.*;
 import com.SafetyNett.SafetyNetAlert.model.FireStation;
 import com.SafetyNett.SafetyNetAlert.model.Personne;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 
 @Service
+@Slf4j
 public class SafetyAlertService {
 
     private final FireStationService fireStationService;
@@ -33,8 +35,11 @@ public class SafetyAlertService {
     public List<PersonneDto> getPersonnesByFireStationNumber(int stationNumber) {
 
 
+        log.debug("Call getPersonnesByFireStationNumber with {}",stationNumber);
         List<FireStation> fireStations = fireStationService.getFireStationsByNumber(stationNumber);
         List<PersonneDto> personneDtos = personneService.getPersonnesByFireStations(fireStations);
+
+        log.debug("Response to getPersonnesByFireStationNumber with {} : {}",stationNumber,personneDtos);
         return personneDtos;
 
     }
@@ -47,8 +52,8 @@ public class SafetyAlertService {
             if (ageCalulatorService.isAdult(birthday)) {
                 adultCount++;
             }
-
         }
+        log.debug("Response to getAdultCountByPersonnes with {} : {}",personnes,adultCount);
         return adultCount;
     }
 
@@ -62,6 +67,7 @@ public class SafetyAlertService {
             }
 
         }
+        log.debug("Response to getChildrenCountByPersonnes with {} : {}",personnes,childrenCount);
         return childrenCount;
     }
 
@@ -111,6 +117,7 @@ public class SafetyAlertService {
             personsWithMedicalRecordDto.add(personWithMedicalRecordDto);
 
         }
+        log.debug("Response to  getPersonWithMedicalRecordByAdress with {} : {}",address,personsWithMedicalRecordDto);
         return personsWithMedicalRecordDto;
 
     }
@@ -179,6 +186,7 @@ public class SafetyAlertService {
         List<PersonneDto> personnesAssociatedToAChild = new ArrayList<>();
         List<PersonneDto> personnes = personneService.getPersonnesByAdress(address);
 
+
         for(PersonneDto personneDto : personnes) {
             String birthday = medicalRecordService.getBirthdayByLastNameAndFirstName(personneDto.getLastName(), personneDto.getFirstName());
             if (ageCalulatorService.isAdult(birthday)) {
@@ -189,7 +197,11 @@ public class SafetyAlertService {
         return personnesAssociatedToAChild;
     }
 
-    public ChildrenDtos getChildrenAndPersonnesAssociatedToAChildByAdress(String address) throws Exception {
+    public ChildrenDtos getChildrenAndPersonnesAssociatedToAChildByAdress(String address)  {
+
+        if(getChildrensbyAdress(address).isEmpty()) {
+            return null;
+        }
 
         ChildrenDtos result = new ChildrenDtos(getChildrensbyAdress(address), getPersonnesAssociatedToAChildByAdress(address));
 

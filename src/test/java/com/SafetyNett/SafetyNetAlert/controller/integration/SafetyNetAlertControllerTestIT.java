@@ -22,7 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Slf4j
-class SafetyNetAlertControllerTestIT {
+class
+SafetyNetAlertControllerTestIT {
     @Autowired
     public MockMvc mockMvc;
 

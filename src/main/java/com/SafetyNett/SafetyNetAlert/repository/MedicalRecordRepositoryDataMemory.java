@@ -30,7 +30,7 @@ public class MedicalRecordRepositoryDataMemory implements MedicalRecordRepositor
     @Override
     public MedicalRecord addNewMedicalRecord(MedicalRecord medicalRecord) {
         medicalRecords.add(medicalRecord);
-        return null;
+        return medicalRecord;
     }
 
     @Override
@@ -41,9 +41,11 @@ public class MedicalRecordRepositoryDataMemory implements MedicalRecordRepositor
                 log.debug("Respone findByLastNameAndFirstName with {} {} : {}", lastName,firstName,medicalRecord);
                 return medicalRecord;
             }
-            log.debug("Failed to findByLastNameAndFirstName with {}&{}",lastName,firstName);
+
         }
-        return null;
+        log.debug("Failed to findByLastNameAndFirstName with {}&{}",lastName,firstName);
+        throw new IllegalArgumentException("Unkown lastName or firstName");
+
     }
 
     @Override

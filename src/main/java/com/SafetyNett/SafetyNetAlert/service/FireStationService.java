@@ -30,7 +30,6 @@ public class FireStationService {
         for(FireStation fireStation : fireStations) {
             if (fireStation.getStation() == stationNumber) {
                 fireStationsResult.add(fireStation);
-
             }
         }
         log.debug("Response to getFireStationsByNumber with {} : {}",stationNumber,fireStationsResult);
@@ -63,12 +62,12 @@ public class FireStationService {
 
         for(FireStation fireStation : fireStations) {
             if (fireStation.getAddress().equals(address)) {
-                log.debug("Response to getFireStationsNumberByAdress with {} : {}",address,fireStationNumber);
                 fireStationNumber = fireStation.getStation();
             }
-            log.debug("Failed to getFireStationsNumberByAdress with {}",address);
+
 
         }
+        log.debug("Response to getFireStationsNumberByAdress with {} : {}",address,fireStationNumber);
         return fireStationNumber;
 
 

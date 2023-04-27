@@ -52,9 +52,9 @@ public class FireStationRepositoryDataMemory implements FireStationRepository {
                 log.debug("Response to findByAdresse  {}",fireStation);
                 return fireStation;
             }
-            log.debug("Failed to findByAdresse with {}",adress);
         }
-        return null;
+        log.debug("Failed to findByLastNameAndFirstName with {}",adress);
+        throw new IllegalArgumentException("Unkown lastName or address");
 
     }
 

@@ -14,7 +14,6 @@ import java.util.List;
 public class PersonneRepositoryDataMemory implements PersonneRepository {
 
 
-
     private List<Personne> personnes = new ArrayList<>();
 
     @Autowired
@@ -23,26 +22,26 @@ public class PersonneRepositoryDataMemory implements PersonneRepository {
     }
 
 
-
     @Override
     public List<Personne> findAll() {
         List<Personne> personnesClone = new ArrayList<>(personnes);
-        log.debug("Response to findAll(): {}" , personnesClone);
+        log.debug("Response to findAll(): {}", personnesClone);
         return personnesClone;
 
     }
 
     @Override
     public Personne findByLastNameAndFirstName(String lastName, String firstName) {
-        log.debug("Call findByLastNameAndFirstName with {}&{}",lastName,firstName);
+        log.debug("Call findByLastNameAndFirstName with {}&{}", lastName, firstName);
         for(Personne personne : personnes) {
             if ((personne.getFirstName().equals(firstName)) && (personne.getLastName().equals(lastName))) {
-                log.debug("Respone findByLastNameAndFirstName with {} {} : {}", lastName,firstName,personne);
+                log.debug("Respone findByLastNameAndFirstName with {} {} : {}", lastName, firstName, personne);
                 return personne;
             }
-            log.debug("Failed to findByLastNameAndFirstName with {}&{}",lastName,firstName);
+
         }
-        return null;
+        log.debug("Failed to findByLastNameAndFirstName with {}&{}",lastName,firstName);
+        throw new IllegalArgumentException("Unkown lastName or firstName");
     }
 
     @Override

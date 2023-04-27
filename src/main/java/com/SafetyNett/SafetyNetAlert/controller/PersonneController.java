@@ -23,20 +23,20 @@ public class PersonneController {
     PersonneService personneService;
 
     @PostMapping( "/person" )
-    public ResponseEntity<Personne> addANewPersonne(@RequestBody Personne personne) {
-        log.info("Call of addAMedicalRecord with  medicalRecord : {}", personne);
+    public ResponseEntity<Personne> addANewPerson(@RequestBody Personne personne) {
+        log.info("Call of addANewPerson with  person : {}", personne);
         try {
-            log.info("Add  Personne : {}", personne);
+            log.info("Add  Person : {}", personne);
             personne = personneRepository.addNewPersonne(personne);
             return new ResponseEntity<>(personne, HttpStatus.CREATED);
         } catch (Exception e) {
-            log.error("Failed to Add medicalRecord  with {}", personne);
+            log.error("Failed to Add person  with {}", personne);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping( "/person" )
-    public ResponseEntity<HttpStatus> deleteAPersonne(@RequestBody Personne personne) {
+    public ResponseEntity<HttpStatus> deleteAPerson(@RequestBody Personne personne) {
         log.info("Call of deleteAPerson  person : {}", personne);
         try {
             log.info("Delete person: {} ", personne);
@@ -50,15 +50,15 @@ public class PersonneController {
     }
 
     @PutMapping( "/person" )
-    public ResponseEntity<Personne> udapteApersonne(@RequestBody Personne personne) {
+    public ResponseEntity<Personne> updateAperson(@RequestBody Personne personne) {
 
-        log.info("Call of udapteApersonne with personne : {}", personne);
+        log.info("Call of updateAperson with personne : {}", personne);
         try {
-            log.info("Udapte personne : {}", personne);
+            log.info("update personne : {}", personne);
             personne = personneRepository.udapteInformationOfaPersonne(personne);
             return new ResponseEntity<>(personne, HttpStatus.ACCEPTED);
         } catch (Exception e) {
-            log.error("Failed to udapte a personne medicalRecord  with {}", personne);
+            log.error("Failed to update a person  with {}", personne);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -73,7 +73,7 @@ public class PersonneController {
             log.info("Response to emailAssociatedToACity : {}", emailOfPersonInTheCity);
             return new ResponseEntity<>(emailOfPersonInTheCity, HttpStatus.OK);
         } catch (Exception e) {
-            log.error("Failed to getPersonnesAtOneAdressesAssociatedtoFiresStations with {}", city);
+            log.error("Failed to get emailAssociatedToACitys with {}", city);
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
         }
