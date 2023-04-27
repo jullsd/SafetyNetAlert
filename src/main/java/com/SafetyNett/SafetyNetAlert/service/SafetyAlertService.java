@@ -72,7 +72,7 @@ public class SafetyAlertService {
     }
 
 
-    public PersonneDtos getPersonnesByFireStation(int stationNumber) {
+    public PersonneDtos getPersonnesWithChildAndAdultCountsByFireStation(int stationNumber) {
         List<PersonneDto> personnes = getPersonnesByFireStationNumber(stationNumber);
         int adultCount = getAdultCountByPersonnes(personnes);
         int childrenCount = getChildrenCountByPersonnes(personnes);

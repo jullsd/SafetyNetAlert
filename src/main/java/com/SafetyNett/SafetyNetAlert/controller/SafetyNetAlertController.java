@@ -4,7 +4,6 @@ import com.SafetyNett.SafetyNetAlert.dto.*;
 import com.SafetyNett.SafetyNetAlert.service.SafetyAlertService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +43,7 @@ public class SafetyNetAlertController {
     public ResponseEntity<PersonneDtos> getPerssonesDtosAssociatedToAFireStation(@RequestParam final int stationNumber) {
         log.info("Call of getPersonnesDtosAssociatedToAFireStation with fireStationNumber : {}", stationNumber);
         try {
-            PersonneDtos personneDtos = safetyAlertService.getPersonnesByFireStation(stationNumber);
+            PersonneDtos personneDtos = safetyAlertService.getPersonnesWithChildAndAdultCountsByFireStation(stationNumber);
             log.info("Response to getPersonnesDtosAssociatedToAFireStation {}", personneDtos);
             return new ResponseEntity<>(personneDtos, HttpStatus.OK);
         } catch (Exception e) {
