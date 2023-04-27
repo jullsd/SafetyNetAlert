@@ -48,7 +48,7 @@ public class SafetyNetAlertController {
             log.info("Response to getPersonnesDtosAssociatedToAFireStation {}", personneDtos);
             return new ResponseEntity<>(personneDtos, HttpStatus.OK);
         } catch (Exception e) {
-            log.error("Failed to getChildrenListAtOneAdress  with {}", stationNumber);
+            log.error("Failed to getPerssonesDtosAssociatedToAFireStation  with {}", stationNumber);
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
         }

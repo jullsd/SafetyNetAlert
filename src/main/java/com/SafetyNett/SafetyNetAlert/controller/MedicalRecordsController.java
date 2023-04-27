@@ -34,7 +34,7 @@ MedicalRecordsController {
     public ResponseEntity<HttpStatus> deleteAMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
         log.info("Call of deleteAMedicalRecord with  medicalRecord : {}", medicalRecord);
         try {
-            log.info("Delete firestation : {} ", medicalRecord);
+            log.info("Delete medicalRecord : {} ", medicalRecord);
             medicalRecordRepository.deleteAMedicalRecord(medicalRecord);
             return new ResponseEntity<>(HttpStatus.OK);
 
